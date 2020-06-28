@@ -12,6 +12,6 @@ public class MainSceneUI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        GameManager.Instance.JoystickMove(joystick.Horizontal, joystick.Vertical);
+        
     }
 }

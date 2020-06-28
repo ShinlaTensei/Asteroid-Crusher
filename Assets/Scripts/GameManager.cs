@@ -7,26 +7,20 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     private bool isGameOver = false;
-    private Dictionary<GameConstant.EventType, Action> listHandlerAction;
-    #region ************************ Event *******************************
-    public event Action<float, float> joystickMove;
-    #endregion
 
 
     // Start is called before the first frame update
     void Start()
     {
-        listHandlerAction = new Dictionary<GameConstant.EventType, Action>();
+
     }
 
     private void OnEnable()
     {
-        AddListener(GameConstant.EventType.GAME_OVER, OnGameOver);
     }
 
     private void OnDisable()
     {
-        RemoveListener(GameConstant.EventType.GAME_OVER, OnGameOver);
     }
 
     // Update is called once per frame
@@ -46,50 +40,9 @@ public class GameManager : Singleton<GameManager>
     {
         isGameOver = false;
         StartCoroutine(SpawnAsteroid());
-        InvokeEvent(GameConstant.EventType.GAME_BEGIN);
     }
 
-    public void JoystickMove(float horizontal, float vertical)
-    {
-        joystickMove.Invoke(horizontal, vertical);
-    }
     #endregion
-
-    public static void AddListener(GameConstant.EventType type, Action callBack)
-    {
-        Action cb = null;
-        if (Instance.listHandlerAction == null)
-        {
-            Instance.listHandlerAction = new Dictionary<GameConstant.EventType, Action>();
-        }
-        if (Instance.listHandlerAction.TryGetValue(type, out cb))
-        {
-            cb += callBack;
-        }
-        else
-        {
-            cb = new Action(callBack);
-            Instance.listHandlerAction.Add(type, cb);
-        }
-    }
-
-    public static void RemoveListener(GameConstant.EventType type, Action callBack)
-    {
-        Action cb;
-        if (Instance.listHandlerAction.TryGetValue(type, out cb))
-        {
-            cb -= callBack;
-        }
-    }
-
-    public static void InvokeEvent(GameConstant.EventType type)
-    {
-        Action thisEvent;
-        if (Instance.listHandlerAction.TryGetValue(type, out thisEvent))
-        {
-            thisEvent.Invoke();
-        }
-    }
 
     IEnumerator SpawnAsteroid()
     {

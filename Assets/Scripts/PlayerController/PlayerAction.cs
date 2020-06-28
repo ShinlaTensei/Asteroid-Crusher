@@ -24,29 +24,9 @@ public class PlayerAction : MonoBehaviour
 
     }
 
-    private void OnEnable()
-    {
-        GameManager.AddListener(GameConstant.EventType.GAME_BEGIN, OnGameBegin);
-        GameManager.Instance.joystickMove += HandleMovement;
-    }
+    
 
-    private void OnDisable()
-    {
-        if (GameManager.Instance)
-        {
-            GameManager.RemoveListener(GameConstant.EventType.GAME_BEGIN, OnGameBegin);
-            GameManager.Instance.joystickMove -= HandleMovement;
-        }
-    }
-
-    private void OnApplicationQuit()
-    {
-        if (GameManager.Instance)
-        {
-            GameManager.RemoveListener(GameConstant.EventType.GAME_BEGIN, OnGameBegin);
-            GameManager.Instance.joystickMove -= HandleMovement;
-        }
-    }
+    
 
     // Update is called once per frame
     void Update()
@@ -77,10 +57,5 @@ public class PlayerAction : MonoBehaviour
     {
         GameObject projectile = ObjectPooler.Instance.SpawnFromPool("bullet_blaster_small_single", transform.position, Quaternion.identity);
         projectile.GetComponent<BulletController>().Fired(Vector3.up);
-    }
-
-    private void OnGameBegin()
-    {
-        Debug.Log("Event call");
     }
 }
