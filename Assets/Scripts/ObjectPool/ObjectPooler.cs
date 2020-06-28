@@ -39,6 +39,7 @@ public class ObjectPooler : MonoBehaviour
 
             poolDictionary.Add(poolObject.tag, queueObject);
         }
+        GameManager.Instance.MainGameStart();
     }
 
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
@@ -49,8 +50,7 @@ public class ObjectPooler : MonoBehaviour
             return null;
         }
         GameObject poolObject = poolDictionary[tag].Dequeue();
-        poolObject.transform.position = position;
-        poolObject.transform.rotation = rotation;
+        poolObject.transform.SetPositionAndRotation(position, rotation);
         poolObject.SetActive(true);
         poolDictionary[tag].Enqueue(poolObject);
 

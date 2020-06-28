@@ -334,10 +334,10 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 10000
   field of view: 60
   orthographic: 1
-  orthographic size: 50
+  orthographic size: 60
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -671,7 +671,7 @@ PrefabInstance:
     - target: {fileID: 800575868050991125, guid: a484d796fa6a76643a41b7b825b7b640,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 39.4
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 800575868050991125, guid: a484d796fa6a76643a41b7b825b7b640,
         type: 3}
@@ -732,6 +732,7 @@ GameObject:
   - component: {fileID: 2142448608}
   - component: {fileID: 2142448607}
   - component: {fileID: 2142448606}
+  - component: {fileID: 2142448610}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -820,6 +821,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2142448610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142448605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf0b90f53e18477409889c62ac29113f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joystick: {fileID: 371285237}
 --- !u!1001 &6882880679054263259
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -836,15 +850,20 @@ PrefabInstance:
       propertyPath: joystick
       value: 
       objectReference: {fileID: 371285237}
+    - target: {fileID: 2032546439947632300, guid: d36431fa7b9562944bb7855ab76fbb68,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 6882880679057974955, guid: d36431fa7b9562944bb7855ab76fbb68,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.57609
+      value: -28.8
       objectReference: {fileID: 0}
     - target: {fileID: 6882880679057974955, guid: d36431fa7b9562944bb7855ab76fbb68,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.0610476
+      value: -4.1
       objectReference: {fileID: 0}
     - target: {fileID: 6882880679057974955, guid: d36431fa7b9562944bb7855ab76fbb68,
         type: 3}
