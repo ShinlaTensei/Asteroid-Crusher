@@ -53,7 +53,6 @@ public class ObjectPooler : MonoBehaviour
         poolObject.transform.SetPositionAndRotation(position, rotation);
         poolObject.SetActive(true);
         poolDictionary[tag].Enqueue(poolObject);
-
         return poolObject;
     }
 

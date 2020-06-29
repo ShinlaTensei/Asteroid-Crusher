@@ -12,7 +12,6 @@ public class PlayerAction : MonoBehaviour
     private float moveSpeed;
 
     private Rigidbody2D rigidBody;
-    private int health = 100;
     #endregion
     private void Awake()
     {
@@ -23,11 +22,7 @@ public class PlayerAction : MonoBehaviour
     {
 
     }
-
     
-
-    
-
     // Update is called once per frame
     void Update()
     {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+﻿using System.Collections;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
@@ -12,7 +9,7 @@ public class GameManager : Singleton<GameManager>
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     private void OnEnable()
@@ -31,7 +28,7 @@ public class GameManager : Singleton<GameManager>
 
     private void OnDestroy()
     {
-
+        
     }
 
 
@@ -48,9 +45,18 @@ public class GameManager : Singleton<GameManager>
     {
         while (!isGameOver)
         {
-            float xPos = Mathf.Clamp(UnityEngine.Random.Range((-1f * Camera.main.orthographicSize * 2f) + 20f, Camera.main.orthographicSize *2f - 20f), -1f * Camera.main.orthographicSize * 2f, Camera.main.orthographicSize * 2f);
-            GameObject asteroid = ObjectPooler.Instance.SpawnFromPool("asteroid01", new Vector3(xPos, Camera.main.orthographicSize + 20f, 0f), Quaternion.identity);
-            asteroid.SetActive(true);
+            if (Camera.main != null)
+            {
+                float xPos =
+                    Mathf.Clamp(
+                        UnityEngine.Random.Range((-1f * Camera.main.orthographicSize * 2f) + 20f,
+                            Camera.main.orthographicSize * 2f - 20f), -1f * Camera.main.orthographicSize * 2f,
+                        Camera.main.orthographicSize * 2f);
+                GameObject asteroid = ObjectPooler.Instance.SpawnFromPool("asteroid01",
+                    new Vector3(xPos, Camera.main.orthographicSize + 20f, 0f), Quaternion.identity);
+                asteroid.SetActive(true);
+            }
+
             yield return new WaitForSeconds(1.5f);
         }
     }
