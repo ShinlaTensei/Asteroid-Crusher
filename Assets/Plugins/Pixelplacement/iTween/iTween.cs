@@ -1446,8 +1446,8 @@ public class iTween : MonoBehaviour
 			if(args.Contains("position")){
 				if (args["position"].GetType() == typeof(Transform)){
 					Transform trans = (Transform)args["position"];
-					fromPosition=trans.position;
-				}else if(args["position"].GetType() == typeof(Vector3)){
+					fromPosition = getPosition(trans);
+				}else if(args["position"] is Vector3){
 					fromPosition=(Vector3)args["position"];
 				}			
 			}else{
@@ -1466,7 +1466,7 @@ public class iTween : MonoBehaviour
 			if(tempIsLocal){
 				target.transform.localPosition = fromPosition;
 			}else{
-				target.transform.position = fromPosition;	
+				setPosition(target.transform, fromPosition);	
 			}
 			
 			//set new position arg:
@@ -4964,7 +4964,34 @@ public class iTween : MonoBehaviour
 				
 		//apply:
 		target.transform.localScale=vector3s[3];		
-	}	
+	}
+	
+	public static Vector3 copyPosition(Transform transform) {
+		RectTransform rectTransform = transform as RectTransform;
+		if (rectTransform != null) {
+			return new Vector3(rectTransform.anchoredPosition3D.x, rectTransform.anchoredPosition3D.y, rectTransform.anchoredPosition3D.z);
+		} else {
+			return new Vector3(transform.position.x, transform.position.y, transform.position.z);
+		}
+	}
+
+	public static Vector3 getPosition(Transform transform) {
+		RectTransform rectTransform = transform as RectTransform;
+		if (rectTransform != null) {
+			return rectTransform.anchoredPosition3D;
+		} else {
+			return transform.position;
+		}
+	}
+
+	public static void setPosition(Transform transform, Vector3 position) {
+		RectTransform rectTransform = transform as RectTransform;
+		if (rectTransform != null) {
+			rectTransform.anchoredPosition3D = position;
+		} else {
+			transform.position = position;
+		}
+	}
 	
 	/// <summary>
 	/// Similar to ScaleTo but incredibly less expensive for usage inside the Update function or similar looping situations involving a "live" set of changing values with MINIMUM customization options.  Does not utilize an EaseType.

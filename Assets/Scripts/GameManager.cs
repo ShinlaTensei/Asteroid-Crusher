@@ -1,10 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
     private bool isGameOver = false;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -14,6 +19,7 @@ public class GameManager : Singleton<GameManager>
 
     private void OnEnable()
     {
+        PlayerManager.Instance.InitData(new PlayerData(0, 0));
     }
 
     private void OnDisable()

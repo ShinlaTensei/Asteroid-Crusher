@@ -6,33 +6,44 @@ public class HomePageUI : MonoBehaviour
     // ****************************************************************
     // ********************** PUBLIC FIELDS ***************************
     // ****************************************************************
-
-    public GameObject singlePlayButton;
-    public GameObject scoresButton;
-    public GameObject armoryButton;
-    public GameObject groupButtonLeftButton;
-    public GameObject connectFbButton;
+    [SerializeField]
+    private GameObject singlePlayButton;
+    [SerializeField]
+    private GameObject scoresButton;
+    [SerializeField]
+    private GameObject armoryButton;
+    [SerializeField]
+    private GameObject groupButtonLeftButton;
+    [SerializeField]
+    private GameObject connectFbButton;
 
     private void OnEnable()
     {
-        TweenFrom(singlePlayButton, () => new Vector3(
+        TweenFrom(singlePlayButton, new Vector3(
             (GetComponent<RectTransform>().rect.width / 2.0f +
              singlePlayButton.GetComponent<RectTransform>().rect.width / 2.0f) * -1f,
-            singlePlayButton.transform.position.y));
-        TweenFrom(scoresButton, new Vector3(5000f, scoresButton.transform.position.y));
-        TweenFrom(armoryButton, () => new Vector3(
+            singlePlayButton.GetComponent<RectTransform>().anchoredPosition.y));
+
+        TweenFrom(scoresButton,
+            new Vector3(
+                GetComponent<RectTransform>().rect.width / 2.0f +
+                scoresButton.GetComponent<RectTransform>().rect.width / 2.0f, 
+                scoresButton.GetComponent<RectTransform>().anchoredPosition.y));
+        
+        TweenFrom(armoryButton, new Vector3(
             (GetComponent<RectTransform>().rect.width / 2.0f +
              armoryButton.GetComponent<RectTransform>().rect.width / 2.0f) * -1f,
-            armoryButton.transform.position.y));
-        TweenFrom(groupButtonLeftButton, () => new Vector3(
-                groupButtonLeftButton.transform.position.x,
+            armoryButton.GetComponent<RectTransform>().anchoredPosition.y));
+        
+        TweenFrom(groupButtonLeftButton, new Vector3(
+                groupButtonLeftButton.GetComponent<RectTransform>().anchoredPosition.x,
                 (GetComponent<RectTransform>().rect.height / 2.0f +
                  groupButtonLeftButton.GetComponent<RectTransform>().rect.height / 2.0f) * -1f));
-        TweenFrom(connectFbButton, () => new Vector3(
-            connectFbButton.transform.position.x,
+        
+        TweenFrom(connectFbButton, new Vector3(
+            connectFbButton.GetComponent<RectTransform>().anchoredPosition.x,
             (GetComponent<RectTransform>().rect.height / 2.0f +
              connectFbButton.GetComponent<RectTransform>().rect.height / 2.0f) * -1f));
-
     }
 
     // ****************************************************************
@@ -52,11 +63,11 @@ public class HomePageUI : MonoBehaviour
     private void TweenFrom(GameObject target, Func<Vector3> startPos)
     {
         iTween.MoveFrom(target, iTween.Hash("position", startPos.Invoke(), "easeType", iTween.EaseType.easeInBack, 
-            "time", .5f));
+            "time", .75));
     }
     private void TweenFrom(GameObject target, Vector3 startPos)
     {
         iTween.MoveFrom(target, iTween.Hash("position", startPos, "easeType", iTween.EaseType.easeInBack, 
-            "time", .5f));
+            "time", .75f));
     }
 }

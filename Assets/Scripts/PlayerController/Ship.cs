@@ -4,13 +4,11 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerAction : MonoBehaviour
+public class Ship : MonoBehaviour
 {
-    #region Elements
-    [Header("Set in Inspector")]
-    [SerializeField]
-    private float moveSpeed;
+    public ShipInfo shipInfo = new ShipInfo();
 
+    #region ************************** Private fields *******************************
     private Rigidbody2D rigidBody;
     #endregion
     private void Awake()
@@ -38,8 +36,8 @@ public class PlayerAction : MonoBehaviour
     {
         if ((joyHorizontal > 0.1f || joyHorizontal < -0.1f) || (joyVertical > 0.1f || joyVertical < -0.1f))
         {
-            float horizontal = joyHorizontal * moveSpeed;
-            float vertical = joyVertical * moveSpeed;
+            float horizontal = joyHorizontal * shipInfo.speed;
+            float vertical = joyVertical * shipInfo.speed;
             float xPos = Mathf.Clamp(rigidBody.transform.position.x + horizontal * Time.deltaTime,
                                         Camera.main.orthographicSize * -2f, Camera.main.orthographicSize * 2f);
             float yPos = Mathf.Clamp(rigidBody.position.y + vertical * Time.deltaTime,
@@ -48,9 +46,21 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
-    public void Shoot()
+    void Shoot()
     {
         GameObject projectile = ObjectPooler.Instance.SpawnFromPool("bullet_blaster_small_single", transform.position, Quaternion.identity);
         projectile.GetComponent<BulletController>().Fired(Vector3.up);
     }
+}
+
+[System.Serializable]
+public class ShipInfo
+{
+    public string name;
+    public int numberOfCannon;
+    public float speed;
+    public int fuelConsumption;
+    public int endurance;
+    public int price;
+    public List<Sprite> shipImage;
 }

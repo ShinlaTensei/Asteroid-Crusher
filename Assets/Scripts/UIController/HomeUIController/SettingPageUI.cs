@@ -6,21 +6,29 @@ public class SettingPageUI : MonoBehaviour
     // ****************************************************************
     // ********************** PUBLIC FIELDS ***************************
     // ****************************************************************
-    public GameObject cancelButton;
-    public GameObject acceptButton;
-    public GameObject settingPopup;
+    [SerializeField]
+    private GameObject cancelButton;
+    [SerializeField]
+    private GameObject acceptButton;
+    [SerializeField]
+    private GameObject settingPopup;
 
     private void OnEnable()
     {
-        TweenFrom(cancelButton, new Vector3(
-            (GetComponent<RectTransform>().rect.width / 2.0f +
-             cancelButton.GetComponent<RectTransform>().rect.width / 2.0f) * -1f,
-            cancelButton.transform.position.y));
-        TweenFrom(acceptButton, new Vector3(2500f, acceptButton.transform.position.y));
-        TweenFrom(settingPopup, new Vector3(
-            settingPopup.transform.position.x,
-            (GetComponent<RectTransform>().rect.height / 2.0f +
-             settingPopup.GetComponent<RectTransform>().rect.height / 2.0f) * -1f));
+        TweenFrom(cancelButton,
+            new Vector3(
+                (GetComponent<RectTransform>().rect.width / 2.0f +
+                 cancelButton.GetComponent<RectTransform>().rect.width / 2.0f) * -1f,
+                cancelButton.GetComponent<RectTransform>().anchoredPosition.y));
+        TweenFrom(acceptButton,
+            new Vector3(
+                (GetComponent<RectTransform>().rect.width / 2.0f +
+                 acceptButton.GetComponent<RectTransform>().rect.width / 2.0f),
+                acceptButton.GetComponent<RectTransform>().anchoredPosition.y));
+        TweenFrom(settingPopup,
+            new Vector3(settingPopup.GetComponent<RectTransform>().anchoredPosition.x,
+                (GetComponent<RectTransform>().rect.height / 2.0f +
+                 settingPopup.GetComponent<RectTransform>().rect.height / 2.0f) * -1f));
     }
 
     // ****************************************************************
