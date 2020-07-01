@@ -1,7 +1,67 @@
 fileFormatVersion: 2
 guid: ff2b4c5e6f7a6324eb52e022f29ae960
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 314622570093254942
+    second: armory_item_level_0
+  - first:
+      213: 6639904167346972441
+    second: armory_item_level_1
+  - first:
+      213: 7781467632938569269
+    second: armory_item_level_2
+  - first:
+      213: 6578541671512342685
+    second: armory_item_level_3
+  - first:
+      213: -150145522528655160
+    second: armory_item_level_4
+  - first:
+      213: 5806097450355801656
+    second: armory_item_level_5
+  - first:
+      213: -7963748982873825192
+    second: armory_item_level_6
+  - first:
+      213: -5791063717614053735
+    second: armory_item_level_7
+  - first:
+      213: -7158254456363072143
+    second: armory_item_level_8
+  - first:
+      213: 7382016515450743486
+    second: armory_item_level_9
+  - first:
+      213: 6956296074168028957
+    second: armory_item_level_10
+  - first:
+      213: 8138668268144755116
+    second: armory_item_level_11
+  - first:
+      213: -6494874773073483044
+    second: armory_item_level_12
+  - first:
+      213: 4231784046924174310
+    second: armory_item_level_13
+  - first:
+      213: -3316905141809489344
+    second: armory_item_level_14
+  - first:
+      213: 9126836696619116588
+    second: armory_item_level_15
+  - first:
+      213: 1491141346232399598
+    second: armory_item_level_16
+  - first:
+      213: -7521922883451645222
+    second: armory_item_level_17
+  - first:
+      213: -2296636946424313688
+    second: armory_item_level_18
+  - first:
+      213: 5565628333192213702
+    second: armory_item_level_19
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -40,7 +100,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -71,9 +131,159 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: armory_item_level_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 150
+        width: 110
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e199ab08f83cd5400800000000000000
+      internalID: 314622570093254942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: armory_item_level_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 120
+        width: 110
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9172a5519ada52c50800000000000000
+      internalID: 6639904167346972441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: armory_item_level_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 90
+        width: 110
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53ec08c85935dfb60800000000000000
+      internalID: 7781467632938569269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: armory_item_level_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 60
+        width: 110
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d90099eabccab4b50800000000000000
+      internalID: 6578541671512342685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: armory_item_level_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 30
+        width: 110
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c8601951739aedf0800000000000000
+      internalID: -150145522528655160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: armory_item_level_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 110
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83e32cb7ed6639050800000000000000
+      internalID: 5806097450355801656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

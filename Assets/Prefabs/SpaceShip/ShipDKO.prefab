@@ -224,7 +224,7 @@ MonoBehaviour:
   shipInfo:
     name: DKO
     numberOfCannon: 1
-    speed: 20
+    speed: 65
     fuelConsumption: 10
     endurance: 10
     price: 1500
@@ -232,6 +232,9 @@ MonoBehaviour:
     - {fileID: 21300000, guid: efca0902e318a784f861c1b7f9b0b95a, type: 3}
     - {fileID: 21300000, guid: 04eac1e378c29f14abe927f8deb8eaf3, type: 3}
     - {fileID: 21300000, guid: 3d80bf7bc3370534b9b6eeb841b9ee7b, type: 3}
+    originSpeed: 50
+    originFuelConsumption: 10
+    originEndurance: 10
 --- !u!1 &8198632000036589193
 GameObject:
   m_ObjectHideFlags: 0

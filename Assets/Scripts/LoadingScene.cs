@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,7 +20,7 @@ public class LoadingScene : MonoBehaviour
             float progress = Mathf.Clamp01(asyncOperation.progress / .9f);
             percent.text = (progress * 100f).ToString(CultureInfo.CurrentCulture);
             loadingDot.transform.Rotate(0f, 0f, Time.deltaTime * 20f);
-            if (asyncOperation.progress == 0.9f)
+            if (Mathf.Abs(asyncOperation.progress - 0.9f) >= 0)
             {
                 loadingBar.SetActive(false);
                 logo.SetActive(true);
@@ -39,11 +38,5 @@ public class LoadingScene : MonoBehaviour
         logo.SetActive(false);
         loadingBar.SetActive(true);
         StartCoroutine(LoadAsyncScene());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

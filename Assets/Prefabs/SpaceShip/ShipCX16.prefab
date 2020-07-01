@@ -184,3 +184,4 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 584df318742d7604ea1445bece95a9f9, type: 3}
     - {fileID: 21300000, guid: a53c50a2a6e1a5a4cac6794747cefb57, type: 3}
     - {fileID: 21300000, guid: 5147c2ec4b685f048ae3b1bc064de2fc, type: 3}
+    originSpeed: 60

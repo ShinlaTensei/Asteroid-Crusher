@@ -72,4 +72,9 @@ public class GameManager : Singleton<GameManager>
         isGameOver = true;
         StopCoroutine(SpawnAsteroid());
     }
+
+    public void ShowMessage(string message)
+    {
+        
+    }
 }

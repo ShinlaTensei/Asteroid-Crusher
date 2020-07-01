@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,11 +21,19 @@ public class PlayerManager
     }
 
     private PlayerData userData;
+
     public PlayerData UserData => userData;
+    public GameObject choosingShip;
+    
 
     private PlayerManager()
     {
         instance = this;
+    }
+
+    ~PlayerManager()
+    {
+        instance = null;
     }
 
     public void InitData(PlayerData data)

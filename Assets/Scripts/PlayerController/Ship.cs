@@ -63,4 +63,8 @@ public class ShipInfo
     public int endurance;
     public int price;
     public List<Sprite> shipImage;
+    public float originSpeed;
+    public int originFuelConsumption;
+    public int originEndurance;
+    public bool isOwn = false;
 }
