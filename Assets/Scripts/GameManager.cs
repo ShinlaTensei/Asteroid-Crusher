@@ -19,7 +19,7 @@ public class GameManager : Singleton<GameManager>
 
     private void OnEnable()
     {
-        PlayerManager.Instance.InitData(new PlayerData(0, 0));
+        PlayerManager.Instance.InitData(new PlayerData(3000, 0));
     }
 
     private void OnDisable()
@@ -76,5 +76,16 @@ public class GameManager : Singleton<GameManager>
     public void ShowMessage(string message)
     {
         
+    }
+    
+    public void TweenFrom(GameObject target, Func<Vector3> startPos)
+    {
+        iTween.MoveFrom(target, iTween.Hash("position", startPos.Invoke(), "easeType", iTween.EaseType.easeInBack, 
+            "time", .75f));
+    }
+    public void TweenFrom(GameObject target, Vector3 startPos)
+    {
+        iTween.MoveFrom(target, iTween.Hash("position", startPos, "easeType", iTween.EaseType.easeInBack, 
+            "time", .75f));
     }
 }

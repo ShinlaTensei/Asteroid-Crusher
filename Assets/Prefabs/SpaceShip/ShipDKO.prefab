@@ -235,6 +235,8 @@ MonoBehaviour:
     originSpeed: 50
     originFuelConsumption: 10
     originEndurance: 10
+    isOwn: 0
+    thisShip: {fileID: 6882880679057974967}
 --- !u!1 &8198632000036589193
 GameObject:
   m_ObjectHideFlags: 0

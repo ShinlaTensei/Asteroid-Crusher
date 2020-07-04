@@ -9,7 +9,8 @@ namespace Constant
 
     public struct Message
     {
-        public const string NotEnoughtMoney = "You don't have enough money to di this !!!";
+        public const string NotEnoughMoney = "You don't have enough money to di this !!!";
+        public const string DontOwn = "You don't have this item in stock !!!";
     }
     
 }

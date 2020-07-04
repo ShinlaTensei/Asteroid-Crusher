@@ -67,4 +67,7 @@ public class ShipInfo
     public int originFuelConsumption;
     public int originEndurance;
     public bool isOwn = false;
+
+    [SerializeField] private GameObject thisShip;
+    public GameObject ThisShip => thisShip;
 }
