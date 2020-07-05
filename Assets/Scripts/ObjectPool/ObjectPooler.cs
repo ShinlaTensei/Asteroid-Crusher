@@ -17,15 +17,15 @@ public class ObjectPooler : MonoBehaviour
         public int size;
     }
     public List<PoolObject> pools;
-    public Dictionary<string, Queue<GameObject>> poolDictionary;
+    public Dictionary<string, Queue<GameObject>> poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
     private void Awake()
     {
         m_instance = this;
     }
-    private void Start()
+
+    public void InitPool()
     {
-        poolDictionary = new Dictionary<string, Queue<GameObject>>();
         foreach (PoolObject poolObject in pools)
         {
             int amount = poolObject.size;
@@ -39,7 +39,10 @@ public class ObjectPooler : MonoBehaviour
 
             poolDictionary.Add(poolObject.tag, queueObject);
         }
-        GameManager.Instance.MainGameStart();
+    }
+    private void Start()
+    {
+
     }
 
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)

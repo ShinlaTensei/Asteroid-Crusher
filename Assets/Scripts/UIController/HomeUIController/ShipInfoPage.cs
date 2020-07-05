@@ -15,6 +15,7 @@ public class ShipInfoPage : MonoBehaviour
     [SerializeField] private Text priceText;
     [SerializeField] private Image shipModel;
     public Sprite[] spritesAttributeLevel = new Sprite[6];
+    
     // Start is called before the first frame update
     void Start()
     {

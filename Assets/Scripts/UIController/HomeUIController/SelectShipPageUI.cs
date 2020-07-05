@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Constant;
 using Pattern.Implement;
+using UnityEngine.SceneManagement;
 
 public class SelectShipPageUI : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class SelectShipPageUI : MonoBehaviour
     [SerializeField] private GameObject shipInfoPage;
     [SerializeField] private GameObject contentNode;
     [SerializeField] private List<Ship> listShip = new List<Ship>();
+    [SerializeField] private GameObject popUpNode;
+    [SerializeField] private GameObject buttonCancel;
+    [SerializeField] private GameObject buttonConfirm;
 
     private int currentPage = 0;
 
@@ -30,6 +34,29 @@ public class SelectShipPageUI : MonoBehaviour
     private void OnEnable()
     {
         money.text = PlayerManager.Instance.UserData.money.ToString();
+        GameManager.Instance.TweenFrom(popUpNode, new Vector3(
+            (GetComponent<RectTransform>().rect.width / 2.0f +
+             popUpNode.GetComponent<RectTransform>().rect.width / 2.0f) * -1f,
+            popUpNode.GetComponent<RectTransform>().anchoredPosition.y));
+        GameManager.Instance.TweenFrom(buttonCancel, new Vector3(
+            buttonCancel.GetComponent<RectTransform>().anchoredPosition.x,
+            (GetComponent<RectTransform>().rect.height / 2.0f +
+             buttonCancel.GetComponent<RectTransform>().rect.height / 2.0f) * -1f));
+        GameManager.Instance.TweenFrom(buttonConfirm, new Vector3(
+            buttonConfirm.GetComponent<RectTransform>().anchoredPosition.x,
+            (GetComponent<RectTransform>().rect.height / 2.0f +
+             buttonConfirm.GetComponent<RectTransform>().rect.height / 2.0f) * -1f));
+    }
+    
+    public void ClickGoto(GameObject to)
+    {
+        ICommand clickGoto = new ClickGoTo(gameObject);
+        clickGoto.Execute(to);
+    }
+
+    public void ClickAccept()
+    {
+        GameManager.Instance.stateMachine.Initialize(new GameBeginState());
     }
     
 }

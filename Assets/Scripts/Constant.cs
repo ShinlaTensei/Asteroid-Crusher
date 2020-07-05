@@ -12,5 +12,12 @@ namespace Constant
         public const string NotEnoughMoney = "You don't have enough money to di this !!!";
         public const string DontOwn = "You don't have this item in stock !!!";
     }
+
+    public struct IndexScene
+    {
+        public const int LoadingScene = 0;
+        public const int HomeScene = 1;
+        public const int MainScene = 2;
+    }
     
 }

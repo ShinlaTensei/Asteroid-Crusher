@@ -1283,7 +1283,7 @@ public class iTween : MonoBehaviour
 				args["rotation"]=new Vector3(transform.eulerAngles.x,transform.eulerAngles.y,transform.eulerAngles.z);
 				args["scale"]=new Vector3(transform.localScale.x,transform.localScale.y,transform.localScale.z);
 			}
-		}		
+		}
 		
 		//establish iTween:
 		args["type"]="move";

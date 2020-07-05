@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections;
+using Pattern;
+using Pattern.Implement;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class GameManager : Singleton<GameManager>
 {
     private bool isGameOver = false;
+    public StateMachine stateMachine = new StateMachine();
 
     private void Awake()
     {
@@ -42,6 +46,7 @@ public class GameManager : Singleton<GameManager>
     public void MainGameStart()
     {
         isGameOver = false;
+        ObjectPooler.Instance.InitPool();
         StartCoroutine(SpawnAsteroid());
     }
 
@@ -77,7 +82,12 @@ public class GameManager : Singleton<GameManager>
     {
         
     }
-    
+
+    public void ShowLoading(bool isLoading)
+    {
+        
+    }
+
     public void TweenFrom(GameObject target, Func<Vector3> startPos)
     {
         iTween.MoveFrom(target, iTween.Hash("position", startPos.Invoke(), "easeType", iTween.EaseType.easeInBack, 
