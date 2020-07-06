@@ -56,7 +56,8 @@ public class SelectShipPageUI : MonoBehaviour
 
     public void ClickAccept()
     {
-        GameManager.Instance.stateMachine.Initialize(new GameBeginState());
+        PlayerManager.Instance.choosingShip = listShip[0].gameObject;
+        GameManager.Instance.gameStateMachine.Initialize(new GameBeginState());
     }
     
 }

@@ -18,8 +18,12 @@ namespace Pattern.Implement
                 operation.completed += (asyncOperation) =>
                 {
                     GameManager.Instance.ShowLoading(false);
-                    GameManager.Instance.MainGameStart();
+                    Exit();
                 };
+            }
+            else
+            {
+                
             }
         }
 
@@ -27,6 +31,5 @@ namespace Pattern.Implement
         {
             base.Exit();
         }
-
     }
 }

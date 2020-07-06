@@ -32,7 +32,7 @@ public class Ship : MonoBehaviour
 
     }
 
-    void HandleMovement(float joyHorizontal, float joyVertical)
+    public void HandleMovement(float joyHorizontal, float joyVertical)
     {
         if ((joyHorizontal > 0.1f || joyHorizontal < -0.1f) || (joyVertical > 0.1f || joyVertical < -0.1f))
         {
@@ -46,7 +46,7 @@ public class Ship : MonoBehaviour
         }
     }
 
-    void Shoot()
+    public void Shoot()
     {
         GameObject projectile = ObjectPooler.Instance.SpawnFromPool("bullet_blaster_small_single", transform.position, Quaternion.identity);
         projectile.GetComponent<BulletController>().Fired(Vector3.up);
