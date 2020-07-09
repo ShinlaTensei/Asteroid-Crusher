@@ -136,3 +136,4 @@ MonoBehaviour:
   moveSpeed: 3000
   explosionPrefab: {fileID: 3767218177937708399, guid: aa4490278e1a09c4086f04b9c373b2fb,
     type: 3}
+  damage: 15

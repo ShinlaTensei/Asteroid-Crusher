@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Pattern;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,50 +10,66 @@ using UnityEngine.Events;
 public class Ship : MonoBehaviour
 {
     public ShipInfo shipInfo = new ShipInfo();
+    public List<Sprite> shipImage = new List<Sprite>();
 
+    #region ************************** EVENT ***********************************
+
+    public event Action<int> OnHit;
+
+    #endregion
     #region ************************** Private fields *******************************
     private Rigidbody2D rigidBody;
+
+    public SpriteRenderer ShipSprite { get; private set; }
     #endregion
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-    
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void FixedUpdate()
-    {
-
+        ShipSprite = GetComponent<SpriteRenderer>();
     }
 
     public void HandleMovement(float joyHorizontal, float joyVertical)
     {
         if ((joyHorizontal > 0.1f || joyHorizontal < -0.1f) || (joyVertical > 0.1f || joyVertical < -0.1f))
         {
+            float orthoSize = Camera.main.orthographicSize;
             float horizontal = joyHorizontal * shipInfo.speed;
             float vertical = joyVertical * shipInfo.speed;
             float xPos = Mathf.Clamp(rigidBody.transform.position.x + horizontal * Time.deltaTime,
-                                        Camera.main.orthographicSize * -2f, Camera.main.orthographicSize * 2f);
+                orthoSize * -2f, orthoSize * 2f);
             float yPos = Mathf.Clamp(rigidBody.position.y + vertical * Time.deltaTime,
-                                        Camera.main.orthographicSize * -1f, Camera.main.orthographicSize);
+                orthoSize * -1f, orthoSize);
             rigidBody.MovePosition(new Vector2(xPos, yPos));
         }
     }
 
     public void Shoot()
     {
-        GameObject projectile = ObjectPooler.Instance.SpawnFromPool("bullet_blaster_small_single", transform.position, Quaternion.identity);
-        projectile.GetComponent<BulletController>().Fired(Vector3.up);
+        for (int i = 0; i < shipInfo.numberOfCannon; ++i)
+        {
+            Transform gunsTransform = transform.GetChild(1).GetChild(i);
+            if (shipInfo.numberOfCannon == 2)
+            {
+                gunsTransform = transform.GetChild(1).GetChild(i + 1);
+            }
+            Vector3 shootPos = gunsTransform.position;
+            GameObject projectile = ObjectPooler.Instance.SpawnFromPool("bullet_blaster_small_single", shootPos, Quaternion.identity);
+            projectile.GetComponent<BulletController>().Fired(Vector3.up);
+        }
     }
+
+    #region ***************************** LOGIC COLLISION *****************************
+
+    private void OnTriggerEnter2D(Collider2D collide)
+    {
+        if (collide.gameObject.CompareTag("Asteroid") || collide.gameObject.CompareTag("Projectile"))
+        {
+            OnHit?.Invoke(5);
+        }
+    }
+    
+
+    #endregion
 }
 
 [System.Serializable]
@@ -62,12 +81,8 @@ public class ShipInfo
     public int fuelConsumption;
     public int endurance;
     public int price;
-    public List<Sprite> shipImage;
     public float originSpeed;
     public int originFuelConsumption;
     public int originEndurance;
     public bool isOwn = false;
-
-    [SerializeField] private GameObject thisShip;
-    public GameObject ThisShip => thisShip;
 }

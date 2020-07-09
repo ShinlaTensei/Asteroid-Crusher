@@ -11,6 +11,7 @@ public class BulletController : MonoBehaviour
     private Vector3 originalPos;
     public float moveSpeed;
     public GameObject explosionPrefab;
+    public float damage;
 
     private void Awake()
     {
@@ -63,7 +64,7 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Asteroid")
+        if (collision.gameObject.CompareTag("Asteroid"))
         {
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             transform.position = originalPos;

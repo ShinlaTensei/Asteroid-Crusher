@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Pattern.Interface;
 using UnityEngine;
 using UnityEngine.UI;
-using Constant;
 using Pattern.Implement;
-using UnityEngine.SceneManagement;
 
 public class SelectShipPageUI : MonoBehaviour
 {
@@ -25,6 +21,9 @@ public class SelectShipPageUI : MonoBehaviour
     {
         for (int i = 0; i < listShip.Count; ++i)
         {
+            List<ShipInfo> info;
+            Base.SaveLoad.LoadShipInfo(out info, Constant.Path.saveFileName);
+            listShip[i].shipInfo = info[i];
             GameObject shipInfo = Instantiate(shipInfoPage, Vector3.zero, Quaternion.identity,
                 contentNode.transform);
             shipInfo.GetComponent<ShipInfoPage>().InitPageData(listShip[i]);
@@ -52,12 +51,42 @@ public class SelectShipPageUI : MonoBehaviour
     {
         ICommand clickGoto = new ClickGoTo(gameObject);
         clickGoto.Execute(to);
+        List<ShipInfo> data = new List<ShipInfo>();
+        for (int i = 0; i < listShip.Count; i++)
+        {
+            data.Add(listShip[i].shipInfo);
+        }
     }
 
     public void ClickAccept()
     {
-        PlayerManager.Instance.choosingShip = listShip[0].gameObject;
-        GameManager.Instance.gameStateMachine.Initialize(new GameBeginState());
+        if (listShip.Count > 0)
+        {
+            PlayerManager.Instance.choosingShip = listShip[0].gameObject;
+            GameManager.Instance.gameStateMachine.Initialize(new GameBeginState());
+        }
+        else
+        {
+            GameManager.Instance.ShowMessage("Không có ship");
+        }
     }
-    
+
+    private void GetInfoFromStorage(List<Ship> storage)
+    {
+        if (storage.Count > 0)
+        {
+            foreach (var item in storage)
+            {
+                var result = listShip.Select(ship =>
+                {
+                    if (ship.name == item.name)
+                    {
+                        return ship;
+                    }
+
+                    return null;
+                } );
+            }
+        }
+    }
 }

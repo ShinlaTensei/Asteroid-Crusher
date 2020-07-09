@@ -1,6 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Pattern;
+using Pattern.Implement;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MainGameController : MonoBehaviour
 {
@@ -9,16 +13,37 @@ public class MainGameController : MonoBehaviour
     private Ship shipHandler;
 
     public Joystick joystick;
+
+    private void Awake()
+    {
+        GameManager.Instance.gameStateMachine.currentState.OnStateEnter += OnStateEnter;
+        GameManager.Instance.gameStateMachine.currentState.onStateExit += OnStateExit;
+        
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        MainGameStart();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        MoveCommand(joystick.Horizontal, joystick.Vertical);
+        if (!isGameOver)
+        {
+            MoveCommand(joystick.Horizontal, joystick.Vertical);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.gameStateMachine.currentState.OnStateEnter -= OnStateEnter;
+            
+            shipHandler.OnHit -= ShipHandlerOnOnHit;
+        }
     }
     
     public void MainGameStart()
@@ -27,6 +52,7 @@ public class MainGameController : MonoBehaviour
         ObjectPooler.Instance.InitPool();
         InitPlayerShip();
         StartCoroutine(SpawnAsteroid());
+        shipHandler.OnHit += ShipHandlerOnOnHit;
     }
 
     IEnumerator SpawnAsteroid()
@@ -35,13 +61,15 @@ public class MainGameController : MonoBehaviour
         {
             if (Camera.main != null)
             {
+                float othoSize = Camera.main.orthographicSize;
                 float xPos =
                     Mathf.Clamp(
-                        UnityEngine.Random.Range((-1f * Camera.main.orthographicSize * 2f) + 20f,
-                            Camera.main.orthographicSize * 2f - 20f), -1f * Camera.main.orthographicSize * 2f,
-                        Camera.main.orthographicSize * 2f);
-                GameObject asteroid = ObjectPooler.Instance.SpawnFromPool("asteroid01",
-                    new Vector3(xPos, Camera.main.orthographicSize + 20f, 0f), Quaternion.identity);
+                        UnityEngine.Random.Range((-1f * othoSize * 2f) + 20f,
+                            othoSize * 2f - 20f), -1f * othoSize * 2f,
+                        othoSize * 2f);
+                int x = Random.Range(1, 4);
+                GameObject asteroid = ObjectPooler.Instance.SpawnFromPool($"asteroid0{x}",
+                    new Vector3(xPos, othoSize + 20f, 0f), Quaternion.identity);
                 asteroid.SetActive(true);
             }
 
@@ -58,7 +86,8 @@ public class MainGameController : MonoBehaviour
         }
         Vector3 pos = new Vector3(0, -1f * Camera.main.orthographicSize - 10f, 0);
         shipHandler.transform.position = pos;
-        iTween.MoveTo(shipHandler.gameObject, iTween.Hash("position", Vector3.zero, "easing", iTween.EaseType.easeInBack,
+        shipHandler.ShipSprite.sprite = shipHandler.shipImage[shipHandler.shipInfo.numberOfCannon - 1];
+        iTween.MoveTo(shipHandler.gameObject, iTween.Hash("position", new Vector3(-10f, 0, 0), "easing", iTween.EaseType.easeInBack,
             "time", 2f));
     }
 
@@ -70,5 +99,28 @@ public class MainGameController : MonoBehaviour
     private void MoveCommand(float horizontal, float vertical)
     {
         shipHandler.HandleMovement(horizontal, vertical);
+    }
+
+    void OnStateEnter(State state)
+    {
+        if (state is GameBeginState)
+        {
+            MainGameStart();
+        }
+        else if (state is GameOverState)
+        {
+            isGameOver = true;
+            StopCoroutine(SpawnAsteroid());
+        }
+    }
+
+    private void OnStateExit(State state)
+    {
+        
+    }
+    
+    private void ShipHandlerOnOnHit(int obj)
+    {
+        
     }
 }

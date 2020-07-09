@@ -40,7 +40,7 @@ public class ShipInfoPage : MonoBehaviour
             priceText.text = crrInfo.price.ToString();
         }
 
-        shipModel.sprite = crrInfo.shipImage[crrInfo.numberOfCannon - 1];
+        shipModel.sprite = ship.shipImage[crrInfo.numberOfCannon - 1];
     }
     
     public void ClickBuyShip()

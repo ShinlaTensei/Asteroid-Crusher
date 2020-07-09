@@ -18,12 +18,12 @@ namespace Pattern.Implement
                 operation.completed += (asyncOperation) =>
                 {
                     GameManager.Instance.ShowLoading(false);
-                    Exit();
+                    OnEnter(this);
                 };
             }
             else
             {
-                
+                OnEnter(this);
             }
         }
 

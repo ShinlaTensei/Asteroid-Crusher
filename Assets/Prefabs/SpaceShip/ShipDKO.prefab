@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1210151380}
   m_Layer: 0
-  m_Name: Guns
+  m_Name: Gun1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23,12 +23,42 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1210151379}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0058, y: 0.7754, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0057999613, y: 0.78389996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 6882880679057974955}
-  m_RootOrder: 1
+  m_Father: {fileID: 4936689218243249647}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4155133615010772363
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7733593248273255521}
+  m_Layer: 0
+  m_Name: Gun3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7733593248273255521
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4155133615010772363}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.535, y: 0.007, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4936689218243249647}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6882880679057974967
 GameObject:
@@ -45,7 +75,7 @@ GameObject:
   - component: {fileID: 2032546439947632300}
   m_Layer: 0
   m_Name: ShipDKO
-  m_TagString: Player
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,7 +92,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children:
   - {fileID: 582749063896395558}
-  - {fileID: 1210151380}
+  - {fileID: 4936689218243249647}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -105,7 +135,7 @@ SpriteRenderer:
   m_SortingLayerID: 1418390195
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: efca0902e318a784f861c1b7f9b0b95a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 04eac1e378c29f14abe927f8deb8eaf3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -147,7 +177,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -174,10 +204,10 @@ PolygonCollider2D:
       - {x: 0.17659111, y: 0.47824118}
       - {x: 0.06494027, y: 0.6493463}
       - {x: 0.036210775, y: 0.6598673}
-      - {x: 0.03357947, y: 0.7589946}
-      - {x: -0.0038152933, y: 0.77237225}
-      - {x: -0.046480656, y: 0.7604027}
-      - {x: -0.043624498, y: 0.66688746}
+      - {x: -0.00046024323, y: 0.6568517}
+      - {x: 0.0018580437, y: 0.65563744}
+      - {x: -0.00028381348, y: 0.6558277}
+      - {x: -0.048487376, y: 0.65797025}
       - {x: -0.12362442, y: 0.58482504}
       - {x: -0.21990108, y: 0.36190158}
       - {x: -0.23671284, y: 0.1935894}
@@ -224,19 +254,81 @@ MonoBehaviour:
   shipInfo:
     name: DKO
     numberOfCannon: 1
-    speed: 65
+    speed: 50
     fuelConsumption: 10
     endurance: 10
     price: 1500
-    shipImage:
-    - {fileID: 21300000, guid: efca0902e318a784f861c1b7f9b0b95a, type: 3}
-    - {fileID: 21300000, guid: 04eac1e378c29f14abe927f8deb8eaf3, type: 3}
-    - {fileID: 21300000, guid: 3d80bf7bc3370534b9b6eeb841b9ee7b, type: 3}
     originSpeed: 50
     originFuelConsumption: 10
     originEndurance: 10
     isOwn: 0
-    thisShip: {fileID: 6882880679057974967}
+  shipImage:
+  - {fileID: 21300000, guid: efca0902e318a784f861c1b7f9b0b95a, type: 3}
+  - {fileID: 21300000, guid: 04eac1e378c29f14abe927f8deb8eaf3, type: 3}
+  - {fileID: 21300000, guid: 3d80bf7bc3370534b9b6eeb841b9ee7b, type: 3}
+--- !u!1 &6991064732439124271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4936689218243249647}
+  m_Layer: 0
+  m_Name: ListGuns
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4936689218243249647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6991064732439124271}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1210151380}
+  - {fileID: 1457790146228937189}
+  - {fileID: 7733593248273255521}
+  m_Father: {fileID: 6882880679057974955}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7077512958464797817
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1457790146228937189}
+  m_Layer: 0
+  m_Name: Gun2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1457790146228937189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7077512958464797817}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.56, y: 0.011, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4936689218243249647}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8198632000036589193
 GameObject:
   m_ObjectHideFlags: 0

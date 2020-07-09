@@ -2240,8 +2240,8 @@ MonoBehaviour:
   contentNode: {fileID: 307356758}
   listShip:
   - {fileID: 2032546439947632300, guid: d36431fa7b9562944bb7855ab76fbb68, type: 3}
-  - {fileID: 5286358631506468391, guid: 8e6014c13ae605e43bf70d5ed8b67fee, type: 3}
   - {fileID: 2032546439947632300, guid: 95c95871d4cb85143bffd507fd651bc6, type: 3}
+  - {fileID: 5286358631506468391, guid: 8e6014c13ae605e43bf70d5ed8b67fee, type: 3}
   popUpNode: {fileID: 697469994}
   buttonCancel: {fileID: 159647355}
   buttonConfirm: {fileID: 1166627772}

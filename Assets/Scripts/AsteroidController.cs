@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +12,14 @@ public class AsteroidController : MonoBehaviour
     private float angle;
     private bool isAllowMoving = false;
     private float moveSpeed = 1200f;
+    
+    [Serializable]
+    public class AsteroidData
+    {
+        public int healthPoint;
+    }
 
+    public AsteroidData data = new AsteroidData();
     public GameObject explosionPrefab;
     public List<Sprite> spriteList = new List<Sprite>();
 
@@ -57,30 +65,17 @@ public class AsteroidController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Projectile")
+        if (collision.gameObject.CompareTag("Projectile"))
         {
             if (!spriteRender)
             {
                 spriteRender = GetComponent<SpriteRenderer>();
             }
-            if (countHit < spriteList.Count - 1)
-            {
-                spriteRender.sprite = spriteList[++countHit];
-            }
-            else
-            {
-                Debug.Log(gameObject.name + "is destroyed");
-                Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-                gameObject.SetActive(false);
-                transform.position = originalPos;
-            }
+            OnHitByProjectile(collision.gameObject);
         }
-        else if (collision.gameObject.tag == "Player")
+        else if (collision.gameObject.CompareTag("Ship"))
         {
-            Debug.Log(gameObject.name + "is destroyed");
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-            gameObject.SetActive(false);
-            transform.position = originalPos;
+            OnDestroyAsteroid();
         }
     }
 
@@ -96,5 +91,33 @@ public class AsteroidController : MonoBehaviour
         body.rotation = 0;
         angle = 0;
         gameObject.SetActive(false);
+    }
+
+    private void OnHitByProjectile(GameObject projectile)
+    {
+        float damage = projectile.GetComponent<BulletController>().damage;
+        if (damage > data.healthPoint)
+        {
+            OnDestroyAsteroid();
+        }
+        else
+        {
+            float offSet = (float) data.healthPoint / spriteList.Count;
+            data.healthPoint -= (int)damage;
+            int index = (int) (data.healthPoint / offSet);
+            if (index > 1 && index < 4)
+            {
+                Debug.Log("test");
+            }
+            spriteRender.sprite = spriteList[index];
+        }
+    }
+
+    private void OnDestroyAsteroid()
+    {
+        Debug.Log(gameObject.name + "is destroyed");
+        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        gameObject.SetActive(false);
+        transform.position = originalPos;
     }
 }

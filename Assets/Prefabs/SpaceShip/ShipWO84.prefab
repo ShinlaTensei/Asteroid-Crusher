@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1210151380}
   m_Layer: 0
-  m_Name: Guns
+  m_Name: Gun1
   m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23,12 +23,75 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1210151379}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0058, y: 0.545, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0057999613, y: 0.585, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
+  m_Father: {fileID: 480188618115077670}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2299686882877486463
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 480188618115077670}
+  m_Layer: 0
+  m_Name: ListGuns
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &480188618115077670
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2299686882877486463}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1210151380}
+  - {fileID: 4749741302070176464}
+  - {fileID: 332835761691894329}
   m_Father: {fileID: 6882880679057974955}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2665254357986337203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 332835761691894329}
+  m_Layer: 0
+  m_Name: Gun3
+  m_TagString: Ship
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &332835761691894329
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2665254357986337203}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.564, y: 0.309, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 480188618115077670}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2844990111010689832
 GameObject:
@@ -132,6 +195,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &4116985973628261567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4749741302070176464}
+  m_Layer: 0
+  m_Name: Gun2
+  m_TagString: Ship
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4749741302070176464
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4116985973628261567}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.554, y: 0.304, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 480188618115077670}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6882880679057974967
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,7 +240,7 @@ GameObject:
   - component: {fileID: 2032546439947632300}
   m_Layer: 0
   m_Name: ShipWO84
-  m_TagString: Player
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -164,7 +257,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children:
   - {fileID: 582749063896395558}
-  - {fileID: 1210151380}
+  - {fileID: 480188618115077670}
   - {fileID: 5426301496524556631}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -250,7 +343,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -267,24 +360,24 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0.63, y: -0.58}
       - {x: 0.66999996, y: -0.48}
-      - {x: 0.66999996, y: 0.04}
-      - {x: 0.53, y: 0.13}
+      - {x: 0.64164424, y: -0.0017143249}
+      - {x: 0.50498027, y: 0.103302814}
       - {x: 0.48, y: 0.39}
       - {x: 0.32999998, y: 0.77}
       - {x: 0.26, y: 0.79999995}
       - {x: 0.17999999, y: 0.79999995}
       - {x: 0.14999999, y: 0.74}
       - {x: 0.13, y: 0.45}
-      - {x: 0.02, y: 0.64}
-      - {x: -0.07, y: 0.58}
-      - {x: -0.13, y: 0.5}
+      - {x: 0.07849512, y: 0.37667903}
+      - {x: -0.08063545, y: 0.38317427}
+      - {x: -0.15658866, y: 0.45212346}
       - {x: -0.14999999, y: 0.77}
       - {x: -0.19999999, y: 0.79999995}
       - {x: -0.25, y: 0.79999995}
       - {x: -0.35, y: 0.69}
-      - {x: -0.44, y: 0.48999998}
-      - {x: -0.58, y: 0.099999994}
-      - {x: -0.65999997, y: 0}
+      - {x: -0.40664026, y: 0.4883314}
+      - {x: -0.4999368, y: 0.1}
+      - {x: -0.6283085, y: -0.010011459}
       - {x: -0.65999997, y: -0.48}
       - {x: -0.64, y: -0.59999996}
       - {x: -0.48, y: -0.65}
@@ -312,15 +405,15 @@ MonoBehaviour:
     fuelConsumption: 10
     endurance: 10
     price: 1500
-    shipImage:
-    - {fileID: 21300000, guid: d00e7142430a75249967fff7e3aaafd0, type: 3}
-    - {fileID: 21300000, guid: 5e625bd80d3f95a498a589f7e8b7f192, type: 3}
-    - {fileID: 21300000, guid: 43a6783c8dcacaf46ac07f88790e4dda, type: 3}
+    shipImagePath: []
     originSpeed: 50
     originFuelConsumption: 10
     originEndurance: 10
     isOwn: 0
-    thisShip: {fileID: 6882880679057974967}
+  shipImage:
+  - {fileID: 21300000, guid: d00e7142430a75249967fff7e3aaafd0, type: 3}
+  - {fileID: 21300000, guid: 5e625bd80d3f95a498a589f7e8b7f192, type: 3}
+  - {fileID: 21300000, guid: 43a6783c8dcacaf46ac07f88790e4dda, type: 3}
 --- !u!1 &8198632000036589193
 GameObject:
   m_ObjectHideFlags: 0

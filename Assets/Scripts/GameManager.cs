@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 
 public class GameManager : Singleton<GameManager>
 {
-    public StateMachine gameStateMachine = new StateMachine();
+    [NonSerialized]public readonly StateMachine gameStateMachine = new StateMachine();
 
     private void Awake()
     {

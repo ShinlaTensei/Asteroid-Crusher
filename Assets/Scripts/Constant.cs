@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Constant
 {
@@ -19,5 +20,9 @@ namespace Constant
         public const int HomeScene = 1;
         public const int MainScene = 2;
     }
-    
+
+    public struct Path
+    {
+        public const string saveFileName = "data.bin";
+    }
 }
