@@ -54,7 +54,7 @@ public class Ship : MonoBehaviour
             }
             Vector3 shootPos = gunsTransform.position;
             GameObject projectile = ObjectPooler.Instance.SpawnFromPool("bullet_blaster_small_single", shootPos, Quaternion.identity);
-            projectile.GetComponent<BulletController>().Fired(Vector3.up);
+            projectile.GetComponent<BulletController>().Fired(Vector3.up, gameObject.tag);
         }
     }
 
@@ -62,7 +62,9 @@ public class Ship : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collide)
     {
-        if (collide.gameObject.CompareTag("Asteroid") || collide.gameObject.CompareTag("Projectile"))
+        if (collide.gameObject.CompareTag("Asteroid") 
+            || (collide.gameObject.CompareTag("Projectile") 
+                && !gameObject.CompareTag(collide.gameObject.GetComponent<BulletController>().TagShotFrom)))
         {
             OnHit?.Invoke(5);
         }

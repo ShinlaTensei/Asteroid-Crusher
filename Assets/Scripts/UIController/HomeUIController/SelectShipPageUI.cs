@@ -15,15 +15,13 @@ public class SelectShipPageUI : MonoBehaviour
     [SerializeField] private GameObject buttonCancel;
     [SerializeField] private GameObject buttonConfirm;
 
-    private int currentPage = 0;
-
     private void Awake()
     {
         for (int i = 0; i < listShip.Count; ++i)
         {
-            List<ShipInfo> info;
-            Base.SaveLoad.LoadShipInfo(out info, Constant.Path.saveFileName);
-            listShip[i].shipInfo = info[i];
+            // List<ShipInfo> info;
+            // Base.SaveLoad.LoadShipInfo(out info, Constant.Path.saveFileName);
+            // listShip[i].shipInfo = info[i];
             GameObject shipInfo = Instantiate(shipInfoPage, Vector3.zero, Quaternion.identity,
                 contentNode.transform);
             shipInfo.GetComponent<ShipInfoPage>().InitPageData(listShip[i]);
@@ -60,6 +58,7 @@ public class SelectShipPageUI : MonoBehaviour
 
     public void ClickAccept()
     {
+        GameManager.Instance.HasConnection();
         if (listShip.Count > 0)
         {
             PlayerManager.Instance.choosingShip = listShip[0].gameObject;
@@ -68,25 +67,6 @@ public class SelectShipPageUI : MonoBehaviour
         else
         {
             GameManager.Instance.ShowMessage("Không có ship");
-        }
-    }
-
-    private void GetInfoFromStorage(List<Ship> storage)
-    {
-        if (storage.Count > 0)
-        {
-            foreach (var item in storage)
-            {
-                var result = listShip.Select(ship =>
-                {
-                    if (ship.name == item.name)
-                    {
-                        return ship;
-                    }
-
-                    return null;
-                } );
-            }
         }
     }
 }

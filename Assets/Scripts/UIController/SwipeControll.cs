@@ -8,7 +8,6 @@ public class SwipeControll : MonoBehaviour
 {
     private RectTransform rectTransform;
     private int crrPageIndex = 0;
-    private int lastPageIndex = 0;
     private HorizontalLayoutGroup layoutGroup;
 
     private List<RectTransform> childList = new List<RectTransform>();

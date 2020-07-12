@@ -230,6 +230,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     healthPoint: 125
+    money: 75
+    score: 15
   explosionPrefab: {fileID: 6462656856246324840, guid: c402271048d08364bb7a51591925410c,
     type: 3}
   spriteList:

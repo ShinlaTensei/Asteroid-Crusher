@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Pattern;
 using Pattern.Implement;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class MainGameController : MonoBehaviour
@@ -14,11 +16,12 @@ public class MainGameController : MonoBehaviour
 
     public Joystick joystick;
 
+    public Text scoreText;
+
     private void Awake()
     {
-        GameManager.Instance.gameStateMachine.currentState.OnStateEnter += OnStateEnter;
-        GameManager.Instance.gameStateMachine.currentState.onStateExit += OnStateExit;
-        
+        GameManager.Instance.gameStateMachine.OnStateEnter += OnStateEnter;
+        GameManager.Instance.gameStateMachine.OnStateExit += OnStateExit;
     }
 
     // Start is called before the first frame update
@@ -40,7 +43,7 @@ public class MainGameController : MonoBehaviour
     {
         if (GameManager.Instance != null)
         {
-            GameManager.Instance.gameStateMachine.currentState.OnStateEnter -= OnStateEnter;
+            GameManager.Instance.gameStateMachine.OnStateEnter -= OnStateEnter;
             
             shipHandler.OnHit -= ShipHandlerOnOnHit;
         }
@@ -64,7 +67,7 @@ public class MainGameController : MonoBehaviour
                 float othoSize = Camera.main.orthographicSize;
                 float xPos =
                     Mathf.Clamp(
-                        UnityEngine.Random.Range((-1f * othoSize * 2f) + 20f,
+                        Random.Range((-1f * othoSize * 2f) + 20f,
                             othoSize * 2f - 20f), -1f * othoSize * 2f,
                         othoSize * 2f);
                 int x = Random.Range(1, 4);
@@ -101,26 +104,48 @@ public class MainGameController : MonoBehaviour
         shipHandler.HandleMovement(horizontal, vertical);
     }
 
+    public void ClickExitGame()
+    {
+        GameManager.Instance.gameStateMachine.ChangeState(new GameOverState());
+        GameManager.Instance.gameStateMachine.ChangeState(new GameExitState());
+    }
+
     void OnStateEnter(State state)
     {
         if (state is GameBeginState)
         {
             MainGameStart();
+            GameManager.Instance.gameStateMachine.ChangeState(new GameRunningState());
         }
-        else if (state is GameOverState)
+        else if (state is GameOverState overState)
         {
             isGameOver = true;
             StopCoroutine(SpawnAsteroid());
+            overState.SaveScore(int.Parse(scoreText.text));
+        }
+        else if (state is GameRunningState runningState)
+        {
+            runningState.onScored += OnScored;
         }
     }
 
     private void OnStateExit(State state)
     {
-        
+        if (state is GameRunningState runningState)
+        {
+            runningState.onScored -= OnScored;
+        }
     }
     
     private void ShipHandlerOnOnHit(int obj)
     {
         
+    }
+
+    private void OnScored(int score, int money)
+    {
+        int crrScore = int.Parse(scoreText.text);
+        crrScore += score;
+        scoreText.text = crrScore.ToString();
     }
 }

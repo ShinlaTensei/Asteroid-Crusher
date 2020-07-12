@@ -25,4 +25,9 @@ namespace Constant
     {
         public const string saveFileName = "data.bin";
     }
+
+    public struct URL
+    {
+        public const string Google = "http://google.com";
+    }
 }

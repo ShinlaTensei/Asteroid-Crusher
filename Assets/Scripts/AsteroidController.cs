@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pattern.Implement;
 
 public class AsteroidController : MonoBehaviour
 {
     private SpriteRenderer spriteRender;
     private Vector3 originalPos;
-    private int countHit = 0;
     private Rigidbody2D body;
     private float angle;
     private bool isAllowMoving = false;
@@ -17,6 +17,8 @@ public class AsteroidController : MonoBehaviour
     public class AsteroidData
     {
         public int healthPoint;
+        public int money;
+        public int score;
     }
 
     public AsteroidData data = new AsteroidData();
@@ -33,7 +35,6 @@ public class AsteroidController : MonoBehaviour
 
     private void OnEnable()
     {
-        countHit = 0;
         spriteRender.sprite = spriteList[0];
         isAllowMoving = true;
         Moving(Vector3.down);
@@ -73,7 +74,7 @@ public class AsteroidController : MonoBehaviour
             }
             OnHitByProjectile(collision.gameObject);
         }
-        else if (collision.gameObject.CompareTag("Ship"))
+        else if (collision.gameObject.CompareTag("Player"))
         {
             OnDestroyAsteroid();
         }
@@ -95,9 +96,15 @@ public class AsteroidController : MonoBehaviour
 
     private void OnHitByProjectile(GameObject projectile)
     {
-        float damage = projectile.GetComponent<BulletController>().damage;
+        BulletController bulletController = projectile.GetComponent<BulletController>();
+        float damage = bulletController.damage;
         if (damage > data.healthPoint)
         {
+            if (bulletController.TagShotFrom == "Player")
+            {
+                OnShootByPlayer();
+            }
+            
             OnDestroyAsteroid();
         }
         else
@@ -119,5 +126,13 @@ public class AsteroidController : MonoBehaviour
         Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         gameObject.SetActive(false);
         transform.position = originalPos;
+    }
+
+    private void OnShootByPlayer()
+    {
+        if (GameManager.Instance.gameStateMachine.currentState is GameRunningState runningState)
+        {
+            runningState.OnScored(data.score, data.money);
+        }
     }
 }

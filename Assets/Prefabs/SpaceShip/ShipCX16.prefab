@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 5286358631506468391}
   m_Layer: 0
   m_Name: ShipCX16
-  m_TagString: Ship
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -317,7 +317,6 @@ MonoBehaviour:
     fuelConsumption: 12
     endurance: 15
     price: 1800
-    shipImagePath: []
     originSpeed: 60
     originFuelConsumption: 12
     originEndurance: 15

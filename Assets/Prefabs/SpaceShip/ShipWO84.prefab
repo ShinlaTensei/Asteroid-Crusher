@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 2032546439947632300}
   m_Layer: 0
   m_Name: ShipWO84
-  m_TagString: Ship
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -405,7 +405,6 @@ MonoBehaviour:
     fuelConsumption: 10
     endurance: 10
     price: 1500
-    shipImagePath: []
     originSpeed: 50
     originFuelConsumption: 10
     originEndurance: 10

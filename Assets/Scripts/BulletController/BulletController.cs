@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters;
 using UnityEngine;
@@ -9,6 +10,9 @@ public class BulletController : MonoBehaviour
 {
     private Rigidbody2D body;
     private Vector3 originalPos;
+    private string tagShootFrom = String.Empty;
+    public string TagShotFrom => tagShootFrom;
+
     public float moveSpeed;
     public GameObject explosionPrefab;
     public float damage;
@@ -43,21 +47,24 @@ public class BulletController : MonoBehaviour
         }
     }
 
-    public void Fired(Vector3 direction)
+    public void Fired(Vector3 direction, string tag)
     {
         if (body == null)
         {
             body = GetComponent<Rigidbody2D>();
         }
         body.AddForce(direction * moveSpeed, ForceMode2D.Force);
+        tagShootFrom = tag;
     }
 
-    public void Fired(Vector3 direction, Quaternion rotation)
+    public void Fired(Vector3 direction, Quaternion rotation, string tag)
     {
         if (body == null)
         {
             body = GetComponent<Rigidbody2D>();
         }
+
+        tagShootFrom = tag;
         transform.rotation = rotation;
         body.AddForce(direction * moveSpeed, ForceMode2D.Force);
     }

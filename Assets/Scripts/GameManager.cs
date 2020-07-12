@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections;
+using System.Net;
 using Pattern;
 using Pattern.Implement;
 using UnityEngine;
-using Object = UnityEngine.Object;
+using System.Threading;
+using Base;
+using Unity.Collections;
+using Unity.Jobs;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -25,6 +29,11 @@ public class GameManager : Singleton<GameManager>
         PlayerManager.Instance.InitData(new PlayerData(3000, 0));
     }
 
+    private void OnApplicationQuit()
+    {
+        Debug.Log("Game quited");
+    }
+
     public void ShowMessage(string message)
     {
         
@@ -44,5 +53,19 @@ public class GameManager : Singleton<GameManager>
     {
         iTween.MoveFrom(target, iTween.Hash("position", startPos, "easeType", iTween.EaseType.easeInBack, 
             "time", .75f));
+    }
+
+    public bool HasConnection()
+    {
+        NativeArray<bool> result = new NativeArray<bool>(1, Allocator.TempJob);
+        CheckConnectionJob networkJob = new CheckConnectionJob();
+        networkJob.result = result;
+        networkJob.timeOut = 5000;
+
+        JobHandle handle = networkJob.Schedule();
+        handle.Complete();
+        bool hasConnection = result[0];
+        result.Dispose();
+        return hasConnection;
     }
 }
