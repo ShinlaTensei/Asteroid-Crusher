@@ -44,12 +44,13 @@ public class MainGameController : MonoBehaviour
         if (GameManager.Instance != null)
         {
             GameManager.Instance.gameStateMachine.OnStateEnter -= OnStateEnter;
+            GameManager.Instance.gameStateMachine.OnStateExit -= OnStateExit;
             
             shipHandler.OnHit -= ShipHandlerOnOnHit;
         }
     }
     
-    public void MainGameStart()
+    private void MainGameStart()
     {
         isGameOver = false;
         ObjectPooler.Instance.InitPool();
@@ -60,6 +61,7 @@ public class MainGameController : MonoBehaviour
 
     IEnumerator SpawnAsteroid()
     {
+        yield return new WaitForSeconds(3.0f);
         while (!isGameOver)
         {
             if (Camera.main != null)

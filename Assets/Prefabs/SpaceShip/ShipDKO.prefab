@@ -253,8 +253,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipInfo:
     name: DKO
-    numberOfCannon: 1
-    speed: 50
+    numberOfCannon: 3
+    speed: 150
     fuelConsumption: 10
     endurance: 10
     price: 1500

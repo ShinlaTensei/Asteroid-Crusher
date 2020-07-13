@@ -38,7 +38,7 @@ public class BulletController : MonoBehaviour
         if (transform.position != originalPos)
         {
             float distance = Vector3.Distance(transform.position, originalPos);
-            if (distance >= 200f)
+            if (distance >= 100f)
             {
                 transform.position = originalPos;
                 gameObject.SetActive(false);

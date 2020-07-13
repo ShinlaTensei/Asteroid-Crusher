@@ -58,7 +58,6 @@ public class SelectShipPageUI : MonoBehaviour
 
     public void ClickAccept()
     {
-        GameManager.Instance.HasConnection();
         if (listShip.Count > 0)
         {
             PlayerManager.Instance.choosingShip = listShip[0].gameObject;

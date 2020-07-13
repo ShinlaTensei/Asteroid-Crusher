@@ -12,6 +12,7 @@ public class AsteroidController : MonoBehaviour
     private float angle;
     private bool isAllowMoving = false;
     private float moveSpeed = 1200f;
+    private float offSet;
     
     [Serializable]
     public class AsteroidData
@@ -47,7 +48,7 @@ public class AsteroidController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        offSet = (float)data.healthPoint / spriteList.Count;
     }
 
     // Update is called once per frame
@@ -109,14 +110,9 @@ public class AsteroidController : MonoBehaviour
         }
         else
         {
-            float offSet = (float) data.healthPoint / spriteList.Count;
             data.healthPoint -= (int)damage;
             int index = (int) (data.healthPoint / offSet);
-            if (index > 1 && index < 4)
-            {
-                Debug.Log("test");
-            }
-            spriteRender.sprite = spriteList[index];
+            spriteRender.sprite = spriteList[spriteList.Count - index];
         }
     }
 
