@@ -27,7 +27,7 @@ public class Ship : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         ShipSprite = GetComponent<SpriteRenderer>();
     }
-
+    
     public void HandleMovement(float joyHorizontal, float joyVertical)
     {
         if ((joyHorizontal > 0.1f || joyHorizontal < -0.1f) || (joyVertical > 0.1f || joyVertical < -0.1f))

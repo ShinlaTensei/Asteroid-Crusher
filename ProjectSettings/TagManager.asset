@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Asteroid
   - Projectile
+  - Ship
   layers:
   - Default
   - TransparentFX
@@ -45,4 +46,7 @@ TagManager:
     locked: 0
   - name: Ship
     uniqueID: 1418390195
+    locked: 0
+  - name: Asteroid
+    uniqueID: 3596248199
     locked: 0
