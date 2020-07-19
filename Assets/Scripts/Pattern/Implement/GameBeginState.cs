@@ -8,7 +8,6 @@ namespace Pattern.Implement
     {
         public override void Enter()
         {
-            base.Enter();
             Scene currScene = SceneManager.GetActiveScene();
             if (currScene != SceneManager.GetSceneByBuildIndex(Constant.IndexScene.MainScene))
             {
@@ -18,14 +17,9 @@ namespace Pattern.Implement
                 operation.completed += (asyncOperation) =>
                 {
                     GameManager.Instance.ShowLoading(false);
-                    GameManager.Instance.gameStateMachine.OnEnter();
+                    base.Enter();
                 };
             }
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
         }
     }
 
@@ -43,7 +37,6 @@ namespace Pattern.Implement
                 loadScene.completed += (operation) =>
                 {
                     GameManager.Instance.ShowLoading(false);
-                    GameManager.Instance.gameStateMachine.OnEnter();
                 };
             }
         }
@@ -51,11 +44,6 @@ namespace Pattern.Implement
     
     public class GameOverState : State
     {
-        public override void Enter()
-        {
-            GameManager.Instance.gameStateMachine.OnEnter();
-        }
-
         public void SaveScore(int score)
         {
             PlayerManager.Instance.UserData.score = score;

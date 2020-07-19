@@ -75,7 +75,7 @@ public class AsteroidController : MonoBehaviour
             }
             OnHitByProjectile(collision.gameObject);
         }
-        else if (collision.gameObject.CompareTag("Player"))
+        else if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Shield"))
         {
             OnDestroyAsteroid();
         }
@@ -111,8 +111,8 @@ public class AsteroidController : MonoBehaviour
         else
         {
             data.healthPoint -= (int)damage;
-            int index = (int) (data.healthPoint / offSet);
-            spriteRender.sprite = spriteList[spriteList.Count - index];
+            int index = (int) Mathf.Clamp(spriteList.Count - (data.healthPoint / offSet), 0, spriteList.Count);
+            spriteRender.sprite = spriteList[index];
         }
     }
 

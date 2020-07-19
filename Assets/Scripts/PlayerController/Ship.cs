@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Constant;
 using Pattern;
+using Pattern.Implement;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,16 +13,13 @@ public class Ship : MonoBehaviour
 {
     public ShipInfo shipInfo = new ShipInfo();
     public List<Sprite> shipImage = new List<Sprite>();
-
-    #region ************************** EVENT ***********************************
-
-    public event Action<int> OnHit;
-
-    #endregion
+    
     #region ************************** Private fields *******************************
     private Rigidbody2D rigidBody;
+    private int health = 5;
 
     public SpriteRenderer ShipSprite { get; private set; }
+    [SerializeField] private GameObject shieldPrefab;
     #endregion
     private void Awake()
     {
@@ -58,15 +57,50 @@ public class Ship : MonoBehaviour
         }
     }
 
+    private void GetPowerUp(PowerUp pw, GameRunningState state)
+    {
+        if (pw.info.type == Powerup.HEALTH)
+        {
+            health = Mathf.Clamp(health + 1, 0, 5);
+            state.InvokeOnGetPowerUp(pw.info, health);
+        }
+        else if (pw.info.type == Powerup.SHIELD)
+        {
+            ActiveShield(pw.info.timeActive);
+        }
+    }
+
+    private void ActiveShield(float time, bool isActive = true)
+    {
+        GameObject shield = Instantiate(shieldPrefab, transform.position, Quaternion.identity, transform);
+        
+        IEnumerator DeactiveShield(GameObject _shield)
+        {
+            yield return new WaitForSeconds(time);
+            Destroy(_shield);
+        }
+
+        StartCoroutine(DeactiveShield(shield));
+    }
+
     #region ***************************** LOGIC COLLISION *****************************
 
     private void OnTriggerEnter2D(Collider2D collide)
     {
-        if (collide.gameObject.CompareTag("Asteroid") 
-            || (collide.gameObject.CompareTag("Projectile") 
-                && !gameObject.CompareTag(collide.gameObject.GetComponent<BulletController>().TagShotFrom)))
+        State state = GameManager.Instance.gameStateMachine.currentState;
+        if (state is GameRunningState runningState)
         {
-            OnHit?.Invoke(5);
+            if (collide.gameObject.CompareTag("Asteroid") 
+                || (collide.gameObject.CompareTag("Projectile") 
+                    && !gameObject.CompareTag(collide.gameObject.GetComponent<BulletController>().TagShotFrom)))
+            {
+                health = Mathf.Clamp(health - 1, 0, 5);
+                runningState.OnHit(health);
+            }
+            else if (collide.gameObject.CompareTag("Powerups"))
+            {
+                GetPowerUp(collide.GetComponent<PowerUp>(), runningState);
+            }
         }
     }
     

@@ -71,7 +71,7 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Asteroid"))
+        if (collision.gameObject.CompareTag("Asteroid") || collision.gameObject.CompareTag("Shield"))
         {
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             transform.position = originalPos;

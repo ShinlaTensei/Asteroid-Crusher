@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Constant;
 using Pattern;
 using Pattern.Implement;
 using UnityEngine;
@@ -17,10 +18,16 @@ public class MainGameController : MonoBehaviour
 
     public Joystick joystick;
 
-    public Text scoreTextThousand;
-    public Text scoreTextBigThousand;
-    
+    [SerializeField] private Text scoreTextThousand;
+    [SerializeField] private Text scoreTextBigThousand;
+    [SerializeField] private GameObject healthContainer;
+    [SerializeField] private Sprite healthLostSprite;
+    [SerializeField] private Sprite healthGainSprite;
     [SerializeField] private GameObject[] arrayStarsBg = new GameObject[2];
+    [SerializeField] private List<PowerUpInfo> powerUpInfos = new List<PowerUpInfo>();
+    [SerializeField] private GameObject popupPwInfo;
+    [SerializeField] private Image iconPw;
+    [SerializeField] private Text typePw;
 
     private Vector3[] originPos;
 
@@ -38,6 +45,12 @@ public class MainGameController : MonoBehaviour
         originPos[1] = arrayStarsBg[1].transform.position;
     }
 
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus) GameManager.Instance.gameStateMachine.ChangeState(new GamePauseState());
+        else GameManager.Instance.gameStateMachine.ChangeState(new GameRunningState());
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -53,8 +66,6 @@ public class MainGameController : MonoBehaviour
         {
             GameManager.Instance.gameStateMachine.OnStateEnter -= OnStateEnter;
             GameManager.Instance.gameStateMachine.OnStateExit -= OnStateExit;
-            
-            shipHandler.OnHit -= ShipHandlerOnOnHit;
         }
     }
     
@@ -63,9 +74,8 @@ public class MainGameController : MonoBehaviour
         isGameOver = false;
         ObjectPooler.Instance.InitPool();
         InitPlayerShip();
-        //StartCoroutine(SpawnAsteroid());
-        InvokeRepeating("LaunchAsteroid", 3.0f, 1.5f);
-        shipHandler.OnHit += ShipHandlerOnOnHit;
+        StartCoroutine(SpawnAsteroid());
+        //InvokeRepeating("LaunchAsteroid", 3.0f, 1.5f);
     }
 
     IEnumerator SpawnAsteroid()
@@ -120,6 +130,9 @@ public class MainGameController : MonoBehaviour
         shipHandler.ShipSprite.sprite = shipHandler.shipImage[shipHandler.shipInfo.numberOfCannon - 1];
         iTween.MoveTo(shipHandler.gameObject, iTween.Hash("position", new Vector3(-10f, 0, 0), "easing", iTween.EaseType.easeInBack,
             "time", 2f));
+        GameObject pw =
+            ObjectPooler.Instance.SpawnFromPool("powerup", new Vector3(46f, -41.5f, 0), Quaternion.identity);
+        pw.GetComponent<PowerUp>().SetPwInfo(powerUpInfos[1]);
     }
 
     public void ShootCommand()
@@ -147,7 +160,11 @@ public class MainGameController : MonoBehaviour
         GameManager.Instance.gameStateMachine.ChangeState(new GameOverState());
         GameManager.Instance.gameStateMachine.ChangeState(new GameExitState());
     }
-
+    
+    /// <summary>
+    /// Handle whenever a new state is entered.
+    /// </summary>
+    /// <param name="state">the current state of the game</param>
     void OnStateEnter(State state)
     {
         if (state is GameBeginState)
@@ -159,13 +176,19 @@ public class MainGameController : MonoBehaviour
         {
             isGameOver = true;
             StopCoroutine(SpawnAsteroid());
-            List<char> score = scoreTextBigThousand.text.Concat(scoreTextThousand.text.ToCharArray()).ToList();
+            string score = scoreTextBigThousand.text + scoreTextThousand.text;
             
-            overState.SaveScore(int.Parse(score.ToString()));
+            overState.SaveScore(int.Parse(score));
         }
         else if (state is GameRunningState runningState)
         {
             runningState.onScored += OnScored;
+            runningState.onHit += ShipHandlerOnOnHit;
+            runningState.OnGetPowerUp += HandleOnGetPowerUp;
+        }
+        else if (state is GamePauseState pauseState)
+        {
+            
         }
     }
 
@@ -174,12 +197,18 @@ public class MainGameController : MonoBehaviour
         if (state is GameRunningState runningState)
         {
             runningState.onScored -= OnScored;
+            runningState.onHit -= ShipHandlerOnOnHit;
+            runningState.OnGetPowerUp -= HandleOnGetPowerUp;
         }
     }
     
-    private void ShipHandlerOnOnHit(int obj)
+    private void ShipHandlerOnOnHit(int crrHealth)
     {
-        
+        healthContainer.transform.GetChild(crrHealth).GetComponent<Image>().sprite = healthLostSprite;
+        if (crrHealth == 0)
+        {
+            GameManager.Instance.gameStateMachine.ChangeState(new GameOverState());
+        }
     }
 
     private void OnScored(int score, int money)
@@ -191,6 +220,17 @@ public class MainGameController : MonoBehaviour
         FormatScore(crrScore, out text);
         scoreTextBigThousand.text = (text[0] + text[1]);
         scoreTextThousand.text = (text[2] + text[3] + text[4]);
+    }
+
+    private void HandleOnGetPowerUp(PowerUpInfo info, object moreData)
+    {
+        if (info.type == Constant.Powerup.HEALTH)
+        {
+            int health = (int) moreData;
+            if (health == 0) return;
+            healthContainer.transform.GetChild(health - 1).GetComponent<Image>().sprite = healthGainSprite;
+        }
+        ShowInfoPowerUp(info);
     }
 
     private void FormatScore(int score, out List<string> scoreText)
@@ -210,5 +250,13 @@ public class MainGameController : MonoBehaviour
                 scoreText.Add("0");
             }
         }
+    }
+
+    private void ShowInfoPowerUp(PowerUpInfo info)
+    {
+        iconPw.sprite = info.Icon;
+        typePw.text = info.type.ToString();
+        popupPwInfo.SetActive(true);
+        
     }
 }

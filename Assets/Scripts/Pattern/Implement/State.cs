@@ -6,12 +6,12 @@ namespace Pattern.Implement
     {
         public virtual void Enter()
         {
-            
+            GameManager.Instance.gameStateMachine.OnEnter();
         }
 
         public virtual void Exit()
         {
-            
+            GameManager.Instance.gameStateMachine.OnExit();
         }
 
         public virtual void Update()

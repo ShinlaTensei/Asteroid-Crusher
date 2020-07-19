@@ -30,4 +30,9 @@ namespace Constant
     {
         public const string Google = "http://google.com";
     }
+
+    public enum Powerup
+    {
+        SPEED, HEALTH, MISSLES, SHIELD
+    }
 }
