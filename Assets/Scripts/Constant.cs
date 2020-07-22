@@ -45,5 +45,6 @@ namespace Constant
     public struct Projectile
     {
         public const string BLASTER_SMALL = "bullet_blaster_small_single";
+        public const string CLUSTER_BOMB = "cluster_bomb";
     }
 }

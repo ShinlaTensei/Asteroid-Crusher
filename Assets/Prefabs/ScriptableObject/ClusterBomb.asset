@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c61b62a8738a5d14ea784a0cc0ae0f36, type: 3}
+  m_Name: ClusterBomb
+  m_EditorClassIdentifier: 
+  type: 4
+  boundingCircle: {fileID: -3476390481331835791, guid: 444a45428c9b7384fb550d6d04ba6a8f,
+    type: 3}
+  icon: {fileID: -8295798406660839959, guid: 444a45428c9b7384fb550d6d04ba6a8f, type: 3}
+  timeActive: 15

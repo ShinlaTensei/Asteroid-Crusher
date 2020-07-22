@@ -8,9 +8,9 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody2D))]
 public class BulletController : MonoBehaviour
 {
-    private Rigidbody2D body;
-    private Vector3 originalPos;
-    private string tagShootFrom = String.Empty;
+    protected Rigidbody2D body;
+    protected Vector3 originalPos;
+    protected string tagShootFrom = String.Empty;
     public string TagShotFrom => tagShootFrom;
 
     public float moveSpeed;
@@ -47,7 +47,7 @@ public class BulletController : MonoBehaviour
         }
     }
 
-    public void Fired(Vector3 direction, string tag)
+    public virtual void Fired(Vector3 direction, string tag)
     {
         if (body == null)
         {
@@ -57,7 +57,7 @@ public class BulletController : MonoBehaviour
         tagShootFrom = tag;
     }
 
-    public void Fired(Vector3 direction, Quaternion rotation, string tag)
+    public virtual void Fired(Vector3 direction, Quaternion rotation, string tag)
     {
         if (body == null)
         {
@@ -69,14 +69,19 @@ public class BulletController : MonoBehaviour
         body.AddForce(direction * moveSpeed, ForceMode2D.Force);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Asteroid") || collision.gameObject.CompareTag("Shield"))
         {
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-            transform.position = originalPos;
-            gameObject.SetActive(false);
-            body.velocity = Vector2.zero;
+            DestroyBullet();
         }
+    }
+
+    protected void DestroyBullet()
+    {
+        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        transform.position = originalPos;
+        gameObject.SetActive(false);
+        body.velocity = Vector2.zero;
     }
 }

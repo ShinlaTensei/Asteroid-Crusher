@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEditor;
 
 namespace Base
 {
@@ -12,16 +10,41 @@ namespace Base
     {
         public static void SaveToBinary(object data, string fileName)
         {
+            GameManager.Instance.Log("Vào SaveLoad.SaveToBinary");
             FileStream stream = new FileStream(Application.persistentDataPath + "/" + fileName, 
                 FileMode.Create);
             BinaryFormatter formatter = new BinaryFormatter();
-            
-            formatter.Serialize(stream, data);
+            try
+            {
+                formatter.Serialize(stream, data);
+            }
+            catch (Exception e)
+            {
+                GameManager.Instance.Log("Vào SaveLoad.SaveToBinary: " + e.Message);
+                throw;
+            }
+
             stream.Close();
+        }
+
+        public static void LoadFromBinary<T>(out T result, string filename)
+        {
+            GameManager.Instance.Log("Vào SaveLoad.LoadFromBinary");
+            string path = Application.persistentDataPath + "/" + filename;
+            if (File.Exists(path))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                FileStream stream = new FileStream(path, FileMode.Open);
+
+                result = (T) formatter.Deserialize(stream);
+                stream.Close();
+            }
+            else result = default;
         }
 
         public static void SaveToJson(object data, string filename)
         {
+            GameManager.Instance.Log("Vào SaveLoad.SaveToJson");
             FileStream stream = new FileStream(Application.persistentDataPath + "/" + filename, FileMode.Create);
             StreamWriter sw = new StreamWriter(stream);
             try
@@ -31,7 +54,8 @@ namespace Base
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                GameManager.Instance.Log("Vào SaveLoad.LoadFromJson: " + e.Message);
+                throw;
             }
             sw.Close();
             stream.Close();
@@ -39,30 +63,18 @@ namespace Base
 
         public static void LoadFromJson<T>(out T result, string filename)
         {
-            FileStream stream = new FileStream(Application.persistentDataPath + "/" + filename, FileMode.Open);
-            StreamReader reader = new StreamReader(stream);
-            string jsonStr = reader.ReadLine();
-            result = JsonUtility.FromJson<T>(jsonStr);
-        }
-
-        public static List<ShipInfo> LoadShipInfo(string fileName)
-        {
-            string path = Application.persistentDataPath + "/" + fileName;
+            GameManager.Instance.Log("Vào SaveLoad.LoadFromJson");
+            string path = Application.persistentDataPath + "/" + filename;
             if (File.Exists(path))
             {
-                BinaryFormatter formatter = new BinaryFormatter();
                 FileStream stream = new FileStream(path, FileMode.Open);
-
-                List<ShipInfo> info = formatter.Deserialize(stream) as List<ShipInfo>;
+                StreamReader reader = new StreamReader(stream);
+                string jsonStr = reader.ReadLine();
+                result = JsonUtility.FromJson<T>(jsonStr);
+                reader.Close();
                 stream.Close();
-                return info;
             }
-            return null;
-        }
-
-        public static void LoadShipInfo(out List<ShipInfo> info, string fileName)
-        {
-            info = LoadShipInfo(fileName);
+            else result = default;
         }
     }
 }
