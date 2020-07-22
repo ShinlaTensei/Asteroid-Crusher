@@ -21,7 +21,7 @@ TagManager:
   - Player
   - Projectile
   - Asteroid
-  - 
+  - Effect
   - 
   - 
   - 
@@ -51,4 +51,7 @@ TagManager:
     locked: 0
   - name: Asteroid
     uniqueID: 3596248199
+    locked: 0
+  - name: Effect
+    uniqueID: 2203635395
     locked: 0

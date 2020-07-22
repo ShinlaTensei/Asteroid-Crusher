@@ -313,11 +313,11 @@ MonoBehaviour:
   shipInfo:
     name: CX16
     numberOfCannon: 1
-    speed: 60
+    speed: 85
     fuelConsumption: 12
     endurance: 15
     price: 1800
-    originSpeed: 60
+    originSpeed: 85
     originFuelConsumption: 12
     originEndurance: 15
     isOwn: 0
@@ -326,6 +326,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a53c50a2a6e1a5a4cac6794747cefb57, type: 3}
   - {fileID: 21300000, guid: 5147c2ec4b685f048ae3b1bc064de2fc, type: 3}
   shieldPrefab: {fileID: 2705595062508096559, guid: 6709ba49c8b1909478e947e38f5cc982,
+    type: 3}
+  collectHealthParticle: {fileID: 4528928012180065794, guid: 6beb232f1e5b8f14fa5e02fed633219b,
     type: 3}
 --- !u!1 &5049880427353517322
 GameObject:

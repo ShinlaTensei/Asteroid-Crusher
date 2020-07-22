@@ -75,7 +75,8 @@ public class AsteroidController : MonoBehaviour
             }
             OnHitByProjectile(collision.gameObject);
         }
-        else if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Shield"))
+        else if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Shield")
+        || collision.gameObject.CompareTag("Ship"))
         {
             OnDestroyAsteroid();
         }

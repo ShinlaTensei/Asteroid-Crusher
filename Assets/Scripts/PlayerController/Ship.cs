@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Constant;
 using Pattern;
 using Pattern.Implement;
 using UnityEngine;
-using UnityEngine.Events;
+using Base;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Ship : MonoBehaviour
@@ -17,9 +16,11 @@ public class Ship : MonoBehaviour
     #region ************************** Private fields *******************************
     private Rigidbody2D rigidBody;
     private int health = 5;
+    private string projectileName = Projectile.BLASTER_SMALL;
 
     public SpriteRenderer ShipSprite { get; private set; }
     [SerializeField] private GameObject shieldPrefab;
+    [SerializeField] private GameObject collectHealthParticle;
     #endregion
     private void Awake()
     {
@@ -42,8 +43,12 @@ public class Ship : MonoBehaviour
         }
     }
 
-    public void Shoot()
+    public void Shoot(bool canShootOtherWeapon)
     {
+        if (!canShootOtherWeapon)
+        {
+            projectileName = Projectile.BLASTER_SMALL;
+        }
         for (int i = 0; i < shipInfo.numberOfCannon; ++i)
         {
             Transform gunsTransform = transform.GetChild(1).GetChild(i);
@@ -52,7 +57,7 @@ public class Ship : MonoBehaviour
                 gunsTransform = transform.GetChild(1).GetChild(i + 1);
             }
             Vector3 shootPos = gunsTransform.position;
-            GameObject projectile = ObjectPooler.Instance.SpawnFromPool("bullet_blaster_small_single", shootPos, Quaternion.identity);
+            GameObject projectile = ObjectPooler.Instance.SpawnFromPool(projectileName, shootPos, Quaternion.identity);
             projectile.GetComponent<BulletController>().Fired(Vector3.up, gameObject.tag);
         }
     }
@@ -63,10 +68,26 @@ public class Ship : MonoBehaviour
         {
             health = Mathf.Clamp(health + 1, 0, 5);
             state.InvokeOnGetPowerUp(pw.info, health);
+            GameObject ps = Instantiate(collectHealthParticle, transform.position, Quaternion.identity, transform);
         }
         else if (pw.info.type == Powerup.SHIELD)
         {
             ActiveShield(pw.info.timeActive);
+        }
+        else if (pw.info.type == Powerup.SPEED)
+        {
+            IEnumerator BoostUpSpeed(float time)
+            {
+                float lastSpeed = shipInfo.speed;
+                shipInfo.speed += Const.SPEED_BOOST;
+                yield return new WaitForSeconds(time);
+                shipInfo.speed = lastSpeed;
+            }
+            StartCoroutine(BoostUpSpeed(pw.info.timeActive));
+        } 
+        else if (pw.info.type == Powerup.CLUSTER)
+        {
+            state.InvokeOnGetPowerUp(pw.info);
         }
     }
 
@@ -99,7 +120,7 @@ public class Ship : MonoBehaviour
             }
             else if (collide.gameObject.CompareTag("Powerups"))
             {
-                GetPowerUp(collide.GetComponent<PowerUp>(), runningState);
+                GetPowerUp(collide.gameObject.GetComponent<PowerUp>(), runningState);
             }
         }
     }
@@ -108,7 +129,7 @@ public class Ship : MonoBehaviour
     #endregion
 }
 
-[System.Serializable]
+[Serializable]
 public class ShipInfo
 {
     public string name;

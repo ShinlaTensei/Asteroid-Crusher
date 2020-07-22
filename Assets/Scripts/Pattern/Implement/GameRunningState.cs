@@ -27,10 +27,14 @@ namespace Pattern.Implement
 
         public void OnHit(int crrHealth)
         {
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                Handheld.Vibrate();
+            }
             onHit?.Invoke(crrHealth);
         }
 
-        public void InvokeOnGetPowerUp(PowerUpInfo type, object additionalData)
+        public void InvokeOnGetPowerUp(PowerUpInfo type, object additionalData = null)
         {
             OnGetPowerUp?.Invoke(type, additionalData);
         }

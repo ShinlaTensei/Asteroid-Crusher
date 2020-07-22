@@ -3,17 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Constant;
 using Pattern;
 using Pattern.Implement;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
+using Base;
 
 public class MainGameController : MonoBehaviour
 {
     private bool isGameOver = false;
-
     private Ship shipHandler;
 
     public Joystick joystick;
@@ -131,13 +132,13 @@ public class MainGameController : MonoBehaviour
         iTween.MoveTo(shipHandler.gameObject, iTween.Hash("position", new Vector3(-10f, 0, 0), "easing", iTween.EaseType.easeInBack,
             "time", 2f));
         GameObject pw =
-            ObjectPooler.Instance.SpawnFromPool("powerup", new Vector3(46f, -41.5f, 0), Quaternion.identity);
-        pw.GetComponent<PowerUp>().SetPwInfo(powerUpInfos[1]);
+                ObjectPooler.Instance.SpawnFromPool("powerup", new Vector3(46f, -41.5f, 0), Quaternion.identity);
+        pw.GetComponent<PowerUp>().SetPwInfo(powerUpInfos[2]);
     }
 
     public void ShootCommand()
     {
-        shipHandler.Shoot();
+        shipHandler.Shoot(false);
     }
 
     private void MoveCommand(float horizontal, float vertical)
@@ -150,7 +151,7 @@ public class MainGameController : MonoBehaviour
         for (int i = 0; i < arrayStarsBg.Length; ++i)
         {
             string tag = $"star0{i + 1}";
-            GameObject starBg = ObjectPooler.Instance.SpawnFromPool(tag, originPos[i], Quaternion.identity);
+            GameObject starBg = Base.ObjectPooler.Instance.SpawnFromPool(tag, originPos[i], Quaternion.identity);
             
         }
     }
@@ -257,6 +258,5 @@ public class MainGameController : MonoBehaviour
         iconPw.sprite = info.Icon;
         typePw.text = info.type.ToString();
         popupPwInfo.SetActive(true);
-        
     }
 }

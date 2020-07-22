@@ -24,6 +24,8 @@ public class PlayerManager
 
     public PlayerData UserData => userData;
     public GameObject choosingShip;
+
+    public PlayerSetting setting = new PlayerSetting();
     
 
     private PlayerManager()

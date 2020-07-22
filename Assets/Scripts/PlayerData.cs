@@ -15,7 +15,9 @@ public class PlayerData
     }
 }
 [System.Serializable]
-public class ShipProgress
+public class PlayerSetting
 {
-    
+    public bool isSound = false;
+    public bool isVibrate = false;
+    public float volume = 0f;
 }

@@ -401,11 +401,11 @@ MonoBehaviour:
   shipInfo:
     name: WO84
     numberOfCannon: 1
-    speed: 65
+    speed: 90
     fuelConsumption: 10
     endurance: 10
     price: 1500
-    originSpeed: 50
+    originSpeed: 90
     originFuelConsumption: 10
     originEndurance: 10
     isOwn: 0
@@ -414,6 +414,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5e625bd80d3f95a498a589f7e8b7f192, type: 3}
   - {fileID: 21300000, guid: 43a6783c8dcacaf46ac07f88790e4dda, type: 3}
   shieldPrefab: {fileID: 2705595062508096559, guid: 6709ba49c8b1909478e947e38f5cc982,
+    type: 3}
+  collectHealthParticle: {fileID: 4528928012180065794, guid: 6beb232f1e5b8f14fa5e02fed633219b,
     type: 3}
 --- !u!1 &8198632000036589193
 GameObject:

@@ -24,6 +24,7 @@ namespace Constant
     public struct Path
     {
         public const string saveFileName = "data.bin";
+        public const string settingFile = "setting.json";
     }
 
     public struct URL
@@ -33,6 +34,16 @@ namespace Constant
 
     public enum Powerup
     {
-        SPEED, HEALTH, MISSLES, SHIELD
+        SPEED, HEALTH, MISSLES, SHIELD, CLUSTER
+    }
+
+    public struct Const
+    {
+        public const float SPEED_BOOST = 20.0f;
+    }
+
+    public struct Projectile
+    {
+        public const string BLASTER_SMALL = "bullet_blaster_small_single";
     }
 }

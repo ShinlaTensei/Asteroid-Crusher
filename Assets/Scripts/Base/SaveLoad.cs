@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.Eventing.Reader;
+﻿using System;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
@@ -17,6 +18,31 @@ namespace Base
             
             formatter.Serialize(stream, data);
             stream.Close();
+        }
+
+        public static void SaveToJson(object data, string filename)
+        {
+            FileStream stream = new FileStream(Application.persistentDataPath + "/" + filename, FileMode.Create);
+            StreamWriter sw = new StreamWriter(stream);
+            try
+            {
+                string json = JsonUtility.ToJson(data);
+                sw.WriteLine(json);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            sw.Close();
+            stream.Close();
+        }
+
+        public static void LoadFromJson<T>(out T result, string filename)
+        {
+            FileStream stream = new FileStream(Application.persistentDataPath + "/" + filename, FileMode.Open);
+            StreamReader reader = new StreamReader(stream);
+            string jsonStr = reader.ReadLine();
+            result = JsonUtility.FromJson<T>(jsonStr);
         }
 
         public static List<ShipInfo> LoadShipInfo(string fileName)
