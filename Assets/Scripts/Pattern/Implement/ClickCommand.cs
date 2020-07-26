@@ -39,9 +39,22 @@ namespace Pattern.Implement
     public class ClickBuyShip : ICommand
     {
         private Ship ship;
-        public ClickBuyShip(Ship item)
+        private event Action<bool> OnResultBuyShip;
+        public ClickBuyShip(Ship item, Action<bool> callbackBuyShip)
         {
             ship = item;
+            OnResultBuyShip += callbackBuyShip;
+        }
+
+        ~ClickBuyShip()
+        {
+            if (OnResultBuyShip?.GetInvocationList() is Action<bool>[] invocationList)
+            {
+                foreach (var function in invocationList)
+                {
+                    OnResultBuyShip -= function;
+                }
+            }
         }
 
         public bool CanExecute(object parameter)
@@ -59,11 +72,13 @@ namespace Pattern.Implement
             if (itemPrice > PlayerManager.Instance.UserData.money)
             {
                 GameManager.Instance.ShowMessage(Message.NotEnoughMoney);
+                OnResultBuyShip?.Invoke(false);
                 return;
             }
-            PlayerManager.Instance.UserData.money -= itemPrice;
+            PlayerManager.Instance.BuyItem(itemPrice);
             ship.shipInfo.isOwn = true;
             PlayerManager.Instance.UserData.ownShip.Add(ship);
+            OnResultBuyShip?.Invoke(true);
         }
     }
 

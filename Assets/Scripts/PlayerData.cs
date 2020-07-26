@@ -6,7 +6,6 @@ public class PlayerData
 {
     public int money;
     public int score;
-    public bool isMusic = false;
     public List<Ship> ownShip = new List<Ship>();
     public PlayerData(int money, int score)
     {

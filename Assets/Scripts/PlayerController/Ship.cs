@@ -30,7 +30,6 @@ public class Ship : MonoBehaviour
     
     public void HandleMovement(float joyHorizontal, float joyVertical)
     {
-        GameManager.Instance.Log("Vào Ship.HandleMovement");
         if ((joyHorizontal > 0.1f || joyHorizontal < -0.1f) || (joyVertical > 0.1f || joyVertical < -0.1f))
         {
             float orthoSize = Camera.main.orthographicSize;

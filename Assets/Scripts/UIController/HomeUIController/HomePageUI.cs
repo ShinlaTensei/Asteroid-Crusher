@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Base;
 using Pattern.Implement;
 using UnityEngine;
+using UnityEngine.UI;
 using ICommand = Pattern.Interface.ICommand;
 
 public class HomePageUI : MonoBehaviour
@@ -20,6 +21,8 @@ public class HomePageUI : MonoBehaviour
     private GameObject groupButtonLeftButton;
     [SerializeField]
     private GameObject connectFbButton;
+
+    public Image testImage;
 
     private void OnEnable()
     {
@@ -60,6 +63,12 @@ public class HomePageUI : MonoBehaviour
         GameManager.Instance.Log("Vào HomePageUI.ClickGoto");
         ICommand clickGoto = new ClickGoTo(gameObject);
         clickGoto.Execute(destination);
+    }
+
+    public void ClickConnectFacebook()
+    {
+        GameManager.Instance.ShowLoading(true);
+        GameManager.Instance.facebookApi.LoginFacebook();
     }
 
     // ****************************************************************

@@ -402,12 +402,12 @@ MonoBehaviour:
     name: WO84
     numberOfCannon: 1
     speed: 90
-    fuelConsumption: 10
-    endurance: 10
-    price: 1500
+    fuelConsumption: 15
+    endurance: 16
+    price: 2000
     originSpeed: 90
-    originFuelConsumption: 10
-    originEndurance: 10
+    originFuelConsumption: 15
+    originEndurance: 16
     isOwn: 0
   shipImage:
   - {fileID: 21300000, guid: d00e7142430a75249967fff7e3aaafd0, type: 3}

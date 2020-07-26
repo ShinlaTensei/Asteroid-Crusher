@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Base;
 using Pattern.Interface;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,11 +19,15 @@ public class SelectShipPageUI : MonoBehaviour
 
     private void Awake()
     {
+        
+    }
+
+    void Start()
+    {
         for (int i = 0; i < listShip.Count; ++i)
         {
-            // List<ShipInfo> info;
-            // Base.SaveLoad.LoadShipInfo(out info, Constant.Path.saveFileName);
-            // listShip[i].shipInfo = info[i];
+            SaveLoad.LoadFromBinary(out List<ShipInfo> info, Constant.Path.saveFileName);
+            listShip[i].shipInfo = info[i];
             GameObject shipInfo = Instantiate(shipInfoPage, Vector3.zero, Quaternion.identity,
                 contentNode.transform);
             shipInfo.GetComponent<ShipInfoPage>().InitPageData(listShip[i]);
@@ -43,8 +49,25 @@ public class SelectShipPageUI : MonoBehaviour
             buttonConfirm.GetComponent<RectTransform>().anchoredPosition.x,
             (GetComponent<RectTransform>().rect.height / 2.0f +
              buttonConfirm.GetComponent<RectTransform>().rect.height / 2.0f) * -1f));
+
+        PlayerManager.Instance.OnBuyItem += OnBuyShip;
     }
-    
+
+    private void OnDisable()
+    {
+        PlayerManager.Instance.OnBuyItem -= OnBuyShip;
+    }
+
+    private void OnApplicationQuit()
+    {
+        List<ShipInfo> dataToSave = new List<ShipInfo>();
+        foreach (var ship in listShip)
+        {
+            dataToSave.Add(ship.shipInfo);
+        }
+        SaveLoad.SaveToBinary(dataToSave, "data.bin");
+    }
+
     public void ClickGoto(GameObject to)
     {
         ICommand clickGoto = new ClickGoTo(gameObject);
@@ -67,5 +90,11 @@ public class SelectShipPageUI : MonoBehaviour
         {
             GameManager.Instance.ShowMessage("Không có ship");
         }
+    }
+
+    private void OnBuyShip(int crrMoney)
+    {
+        money.text = crrMoney.ToString();
+        
     }
 }

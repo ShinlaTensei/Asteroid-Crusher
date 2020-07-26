@@ -23,7 +23,6 @@ namespace Base
                 GameManager.Instance.Log("Vào SaveLoad.SaveToBinary: " + e.Message);
                 throw;
             }
-
             stream.Close();
         }
 

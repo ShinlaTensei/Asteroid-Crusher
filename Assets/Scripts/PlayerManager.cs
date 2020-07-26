@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerManager
 {
     private static PlayerManager instance;
+    public event Action<int> OnBuyItem;
 
     public static PlayerManager Instance
     {
@@ -36,10 +37,23 @@ public class PlayerManager
     ~PlayerManager()
     {
         instance = null;
+        if (OnBuyItem?.GetInvocationList() is Action<int>[] invocationList)
+        {
+            foreach (var function in invocationList)
+            {
+                OnBuyItem -= function;
+            }
+        }
     }
 
     public void InitData(PlayerData data)
     {
         userData = data;
+    }
+
+    public void BuyItem(int money)
+    {
+        userData.money -= money;
+        OnBuyItem?.Invoke(userData.money);
     }
 }

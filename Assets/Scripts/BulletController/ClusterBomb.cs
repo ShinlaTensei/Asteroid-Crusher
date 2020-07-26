@@ -10,7 +10,6 @@ public class ClusterBomb : BulletController
     // Update is called once per frame
     void FixedUpdate()
     {
-        GameManager.Instance.Log("Vào ClusterBomb.Update");
         body.SetRotation(Time.deltaTime * 1000f);
     }
 

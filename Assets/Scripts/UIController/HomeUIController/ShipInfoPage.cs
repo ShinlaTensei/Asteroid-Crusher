@@ -1,4 +1,5 @@
-﻿using Constant;
+﻿using System;
+using Constant;
 using UnityEngine;
 using UnityEngine.UI;
 using Pattern.Interface;
@@ -14,10 +15,14 @@ public class ShipInfoPage : MonoBehaviour
     [SerializeField] private Image enduranceLevel;
     [SerializeField] private Text priceText;
     [SerializeField] private Image shipModel;
+    [SerializeField] private Button buyButton;
+    [SerializeField] private Button chooseButton;
     public Sprite[] spritesAttributeLevel = new Sprite[6];
+    private Ship thisShip;
 
     public void InitPageData(Ship ship)
     {
+        thisShip = ship;
         var crrInfo = ship.shipInfo;
         shipName.text = crrInfo.name;
         numOfCannon.text = crrInfo.numberOfCannon.ToString();
@@ -34,6 +39,9 @@ public class ShipInfoPage : MonoBehaviour
         {
             priceText.text = "Owned";
             priceText.color = Color.green;
+            buyButton.gameObject.SetActive(false);
+            chooseButton.gameObject.SetActive(true);
+            AllowUpgradeShip();
         }
         else
         {
@@ -45,12 +53,26 @@ public class ShipInfoPage : MonoBehaviour
     
     public void ClickBuyShip()
     {
-        Ship thisShip = GetComponent<Ship>();
-        ICommand clickBuy = new ClickBuyShip(thisShip);
         int shipMoney = int.Parse(priceText.text);
         if (thisShip.shipInfo.isOwn == false)
         {
+            ICommand clickBuy = new ClickBuyShip(thisShip, OnResultBuyShip);
             clickBuy.Execute(shipMoney);
+        }
+    }
+
+    private void OnResultBuyShip(bool isBuySuccess)
+    {
+        if (isBuySuccess)
+        {
+            buyButton.gameObject.SetActive(false);
+            chooseButton.gameObject.SetActive(true);
+            if (thisShip.shipInfo.isOwn)
+            {
+                priceText.text = "Owned";
+                priceText.color = Color.green;
+                AllowUpgradeShip();
+            }
         }
     }
     
@@ -59,5 +81,10 @@ public class ShipInfoPage : MonoBehaviour
         Ship thisShip = GetComponent<Ship>();
         ICommand clickChoseShip = new ClickChoseShip(thisShip);
         if (clickChoseShip.CanExecute()) clickChoseShip.Execute();
+    }
+
+    private void AllowUpgradeShip()
+    {
+        
     }
 }
