@@ -24,14 +24,15 @@ public class SelectShipPageUI : MonoBehaviour
 
     void Start()
     {
+        SaveLoad.LoadFromBinary(out List<ShipInfo> info, Constant.Path.saveFileName);
         for (int i = 0; i < listShip.Count; ++i)
         {
-            SaveLoad.LoadFromBinary(out List<ShipInfo> info, Constant.Path.saveFileName);
             listShip[i].shipInfo = info[i];
             GameObject shipInfo = Instantiate(shipInfoPage, Vector3.zero, Quaternion.identity,
                 contentNode.transform);
             shipInfo.GetComponent<ShipInfoPage>().InitPageData(listShip[i]);
         }
+        contentNode.GetComponent<SwipeControll>().InitSwipe();
     }
 
     private void OnEnable()

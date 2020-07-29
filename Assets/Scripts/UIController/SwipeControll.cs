@@ -14,18 +14,23 @@ public class SwipeControll : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rectTransform = GetComponent<RectTransform>();
-        layoutGroup = GetComponent<HorizontalLayoutGroup>();
-        foreach (RectTransform child in rectTransform)
-        {
-            childList.Add(child);
-        }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void InitSwipe()
+    {
+        rectTransform = GetComponent<RectTransform>();
+        layoutGroup = GetComponent<HorizontalLayoutGroup>();
+        foreach (RectTransform child in rectTransform)
+        {
+            childList.Add(child);
+        }
     }
 
     private void SwipeToIndex(int index)
