@@ -8,8 +8,6 @@ using System.IO;
 using Facebook.Unity;
 using System.Collections.Generic;
 using System.Runtime.Remoting.Messaging;
-using PlayFab;
-using PlayFab.ClientModels;
 using TMPro;
 using UnityEngine.UI;
 using LoginResult = PlayFab.ClientModels.LoginResult;
@@ -21,6 +19,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject loadingPrefab;
 
     public FacebookAPI facebookApi { get; private set; }
+    public PlayFabController playfabController { get; private set; }
 
     private GameObject loadingPanel;
 
@@ -40,6 +39,7 @@ public class GameManager : Singleton<GameManager>
         }
 
         facebookApi = GetComponent<FacebookAPI>();
+        playfabController = GetComponent<PlayFabController>();
     }
 
     private void OnEnable()
@@ -118,38 +118,4 @@ public class GameManager : Singleton<GameManager>
             }
         }
     }
-    
-    #region Facebook
-
-    private void LoginFBCallback(ILoginResult result)
-    {
-        if (FB.IsLoggedIn)
-        {
-            Log("GameManager.LoginFBCallback login success");
-            var aToken = AccessToken.CurrentAccessToken;
-            var request = new LoginWithFacebookRequest
-            {
-                AccessToken = aToken.TokenString,
-                InfoRequestParameters = new GetPlayerCombinedInfoRequestParams {GetUserData = true},
-                CreateAccount = true
-            };
-            PlayFabClientAPI.LoginWithFacebook(request, OnLoginSuccess, OnLoginError);
-        }
-        else
-        {
-            Log("GameManager.LoginFBCallback login failed");
-            Debug.Log("test");
-        }
-    }
-
-    private void OnLoginSuccess(LoginResult result)
-    {
-        Debug.Log("test");
-    }
-
-    private void OnLoginError(PlayFabError error)
-    {
-        Debug.Log("test");
-    }
-    #endregion
 }

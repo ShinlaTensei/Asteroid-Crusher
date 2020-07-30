@@ -24,7 +24,7 @@ public class SelectShipPageUI : MonoBehaviour
 
     void Start()
     {
-        SaveLoad.LoadFromBinary(out List<ShipInfo> info, Constant.Path.saveFileName);
+        SaveLoad.LoadFromBinary(out List<ShipInfo> info, Constant.Path.shipData);
         for (int i = 0; i < listShip.Count; ++i)
         {
             listShip[i].shipInfo = info[i];
@@ -54,9 +54,24 @@ public class SelectShipPageUI : MonoBehaviour
         PlayerManager.Instance.OnBuyItem += OnBuyShip;
     }
 
+    void Update()
+    {
+        Debug.Log(AudioSettings.dspTime);
+    }
+
     private void OnDisable()
     {
         PlayerManager.Instance.OnBuyItem -= OnBuyShip;
+    }
+
+    private void OnDestroy()
+    {
+        List<ShipInfo> dataToSave = new List<ShipInfo>();
+        foreach (var ship in listShip)
+        {
+            dataToSave.Add(ship.shipInfo);
+        }
+        SaveLoad.SaveToBinary(dataToSave, Constant.Path.shipData);
     }
 
     private void OnApplicationQuit()
@@ -66,7 +81,7 @@ public class SelectShipPageUI : MonoBehaviour
         {
             dataToSave.Add(ship.shipInfo);
         }
-        SaveLoad.SaveToBinary(dataToSave, "data.bin");
+        SaveLoad.SaveToBinary(dataToSave, Constant.Path.shipData);
     }
 
     public void ClickGoto(GameObject to)

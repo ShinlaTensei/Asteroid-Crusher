@@ -25,7 +25,8 @@ namespace Constant
 
     public struct Path
     {
-        public const string saveFileName = "data.bin";
+        public const string shipData = "data.bin";
+        public const string playerData = "data2.bin";
         public const string settingFile = "setting.json";
     }
 

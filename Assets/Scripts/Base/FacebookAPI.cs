@@ -23,6 +23,9 @@ namespace Base
         private int userId;
         public int UserId => userId;
         private Sprite userAvatar;
+
+        public Sprite UserAvatar => userAvatar;
+
         void Awake()
         {
             InitFacebook();
@@ -89,6 +92,8 @@ namespace Base
                 aToken = AccessToken.CurrentAccessToken;
                 loginResultDict = Json.Deserialize(result.RawResult) as Dictionary<string, object>;
                 GetApi();
+                GameManager.Instance.playfabController.LoginWithFacebook(aToken.TokenString);
+                PlayerManager.Instance.UserData.facebookData.isLoginFacebook = true;
             }
             else
             {

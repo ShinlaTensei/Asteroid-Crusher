@@ -1,6 +1,9 @@
 ﻿using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
+using Facebook.Unity;
+using LoginResult = PlayFab.ClientModels.LoginResult;
+
 
 public class PlayFabController : MonoBehaviour
 {
@@ -16,6 +19,15 @@ public class PlayFabController : MonoBehaviour
         }
         // var request = new LoginWithCustomIDRequest { CustomId = "GettingStartedGuide", CreateAccount = true};
         // PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnLoginFailure);
+    }
+
+    public void LoginWithFacebook(string tokenString)
+    {
+        var request = new LoginWithFacebookRequest
+        {
+            CreateAccount = true, AccessToken = tokenString
+        };
+        PlayFabClientAPI.LoginWithFacebook(request, OnLoginSuccess, OnLoginFailure);
     }
 
     private void OnLoginSuccess(LoginResult result)
