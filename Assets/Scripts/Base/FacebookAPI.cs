@@ -13,7 +13,7 @@ namespace Base
     public class FacebookAPI : MonoBehaviour
     {
         public AccessToken aToken { get; private set; }
-        private Dictionary<string, object> loginResultDict;
+
         private Dictionary<string, object> graphApiResult;
         private Dictionary<string, object> detailAvatar;
         private IJob currentJob;
@@ -90,7 +90,7 @@ namespace Base
             {
                 GameManager.Instance.Log("GameManager.LoginFBCallback login success");
                 aToken = AccessToken.CurrentAccessToken;
-                loginResultDict = Json.Deserialize(result.RawResult) as Dictionary<string, object>;
+
                 GetApi();
                 GameManager.Instance.playfabController.LoginWithFacebook(aToken.TokenString);
                 PlayerManager.Instance.UserData.facebookData.isLoginFacebook = true;

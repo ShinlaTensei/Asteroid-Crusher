@@ -56,7 +56,7 @@ public class SelectShipPageUI : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(AudioSettings.dspTime);
+        
     }
 
     private void OnDisable()

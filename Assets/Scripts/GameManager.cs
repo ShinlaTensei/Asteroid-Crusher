@@ -5,12 +5,6 @@ using Base;
 using Unity.Collections;
 using Unity.Jobs;
 using System.IO;
-using Facebook.Unity;
-using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
-using TMPro;
-using UnityEngine.UI;
-using LoginResult = PlayFab.ClientModels.LoginResult;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -40,12 +34,14 @@ public class GameManager : Singleton<GameManager>
 
         facebookApi = GetComponent<FacebookAPI>();
         playfabController = GetComponent<PlayFabController>();
+        if (File.Exists(Application.persistentDataPath + "/" + Constant.Path.playerData)) LoadPlayerData();
+        else PlayerManager.Instance.InitData(new PlayerData(3000, 0));
     }
 
     private void OnEnable()
     {
         Log("Vào GameManager.OnEnable");
-        PlayerManager.Instance.InitData(new PlayerData(3000, 0));
+
     }
 
     private void OnDisable()
@@ -57,6 +53,8 @@ public class GameManager : Singleton<GameManager>
     {
         Log("Vào GameManager.OnApplicationQuit");
         Debug.Log("Game quited");
+        m_ShuttingDown = true;
+        SaveLoad.SaveToBinary(PlayerManager.Instance.UserData, Constant.Path.playerData);
     }
 
     public void ShowMessage(string message)
@@ -118,4 +116,11 @@ public class GameManager : Singleton<GameManager>
             }
         }
     }
+
+    private void LoadPlayerData()
+    {
+        SaveLoad.LoadFromBinary(out PlayerData data, Constant.Path.playerData);
+        PlayerManager.Instance.InitData(data);
+    }
+    
 }

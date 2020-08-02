@@ -10,7 +10,6 @@ namespace Base
     {
         public static void SaveToBinary(object data, string fileName)
         {
-            GameManager.Instance.Log("Vào SaveLoad.SaveToBinary");
             FileStream stream = new FileStream(Application.persistentDataPath + "/" + fileName, 
                 FileMode.Create);
             BinaryFormatter formatter = new BinaryFormatter();
@@ -20,7 +19,7 @@ namespace Base
             }
             catch (Exception e)
             {
-                GameManager.Instance.Log("Vào SaveLoad.SaveToBinary: " + e.Message);
+                Debug.Log(e.Message);
                 throw;
             }
             stream.Close();

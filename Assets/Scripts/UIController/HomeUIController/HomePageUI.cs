@@ -5,6 +5,7 @@ using Pattern.Implement;
 using UnityEngine;
 using UnityEngine.UI;
 using ICommand = Pattern.Interface.ICommand;
+using Facebook.Unity;
 
 public class HomePageUI : MonoBehaviour
 {
@@ -54,6 +55,14 @@ public class HomePageUI : MonoBehaviour
              connectFbButton.GetComponent<RectTransform>().rect.height / 2.0f) * -1f));
     }
 
+    private void Start()
+    {
+        if (PlayerManager.Instance.UserData.facebookData.isLoginFacebook && !FB.IsLoggedIn)
+        {
+            ClickConnectFacebook();
+        }
+    }
+
     // ****************************************************************
     // ********************** BUTTON EVENTS METHODS *******************
     // ****************************************************************
@@ -69,6 +78,7 @@ public class HomePageUI : MonoBehaviour
     {
         GameManager.Instance.ShowLoading(true);
         GameManager.Instance.facebookApi.LoginFacebook();
+        connectFbButton.SetActive(false);
     }
 
     // ****************************************************************

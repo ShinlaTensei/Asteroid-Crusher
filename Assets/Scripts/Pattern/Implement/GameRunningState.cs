@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Constant;
 using Pattern.Implement;
+using PlayFab;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

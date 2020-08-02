@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using PlayFab.GroupsModels;
 using UnityEngine;
 
 [System.Serializable]
@@ -10,8 +11,8 @@ public class PlayerData
     public int money;
     public int score;
 
-    [NonSerialized] public UserFacebookData facebookData;
-    public List<Ship> ownShip = new List<Ship>();
+    public UserFacebookData facebookData = new UserFacebookData();
+    public bool isLoginToPlayFab = false;
     public PlayerData(int money, int score)
     {
         this.money = money;

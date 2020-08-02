@@ -77,7 +77,7 @@ namespace Pattern.Implement
             }
             PlayerManager.Instance.BuyItem(itemPrice);
             ship.shipInfo.isOwn = true;
-            PlayerManager.Instance.UserData.ownShip.Add(ship);
+            //PlayerManager.Instance.UserData.ownShip.Add(ship);
             OnResultBuyShip?.Invoke(true);
         }
     }

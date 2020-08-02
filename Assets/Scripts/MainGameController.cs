@@ -67,6 +67,8 @@ public class MainGameController : MonoBehaviour
         {
             GameManager.Instance.gameStateMachine.OnStateEnter -= OnStateEnter;
             GameManager.Instance.gameStateMachine.OnStateExit -= OnStateExit;
+            GameManager.Instance.playfabController.GetStatistics();
+            GameManager.Instance.playfabController.SetStatistic(PlayerManager.Instance.UserData.score);
         }
     }
     
