@@ -120,6 +120,7 @@ public class GameManager : Singleton<GameManager>
     private void LoadPlayerData()
     {
         SaveLoad.LoadFromBinary(out PlayerData data, Constant.Path.playerData);
+        if (data == null) data = new PlayerData(3000, 0);
         PlayerManager.Instance.InitData(data);
     }
     

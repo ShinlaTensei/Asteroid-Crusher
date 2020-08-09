@@ -81,6 +81,14 @@ public class HomePageUI : MonoBehaviour
         connectFbButton.SetActive(false);
     }
 
+    public void ClickLeaderboard()
+    {
+        GameManager.Instance.playfabController.GetLeaderboard(() =>
+        {
+            Debug.Log("test");
+        });
+    }
+
     // ****************************************************************
     // ********************** OTHER METHODS ***************************
     // ****************************************************************

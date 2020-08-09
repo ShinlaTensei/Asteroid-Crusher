@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
-using PlayFab.GroupsModels;
-using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class PlayerData
 {
     public int money;

@@ -1,7 +1,9 @@
-﻿using PlayFab;
+﻿using System;
+using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
 using System.Collections.Generic;
+using System.ComponentModel;
 using PlayFab.Json;
 using LoginResult = PlayFab.ClientModels.LoginResult;
 
@@ -9,6 +11,7 @@ using LoginResult = PlayFab.ClientModels.LoginResult;
 public class PlayFabController : MonoBehaviour
 {
     private string titleId = "9C7A3";
+    private int severScore;
     public void Start()
     {
         if (string.IsNullOrEmpty(PlayFabSettings.staticSettings.TitleId)){
@@ -23,6 +26,8 @@ public class PlayFabController : MonoBehaviour
     }
 
     #region  Login
+
+    private bool isLogin = false;
     public void LoginWithFacebook(string tokenString)
     {
         var request = new LoginWithFacebookRequest
@@ -36,6 +41,13 @@ public class PlayFabController : MonoBehaviour
     {
         Debug.Log("Congratulations, you made your first successful API call!");
         PlayerManager.Instance.UserData.isLoginToPlayFab = true;
+        isLogin = true;
+        string name = GameManager.Instance.facebookApi.UserName;
+        var request = new UpdateUserTitleDisplayNameRequest {DisplayName = name};
+        PlayFabClientAPI.UpdateUserTitleDisplayName(request, updateResult =>
+        {
+            Debug.Log(updateResult.DisplayName);
+        }, ErrorCallback);
     }
 
     private void OnLoginFailure(PlayFabError error)
@@ -50,6 +62,7 @@ public class PlayFabController : MonoBehaviour
     #region Player Statistic
     public void SetStatistic(int value)
     {
+        if (!isLogin) return;
         var executeCloudScriptRequest = new ExecuteCloudScriptRequest
         {
             FunctionName = "SetStatistic",
@@ -61,6 +74,7 @@ public class PlayFabController : MonoBehaviour
 
     public void GetStatistics()
     {
+        if (!isLogin) return;
         var executeCloudScriptRequest = new ExecuteCloudScriptRequest
         {
             FunctionName = "GetPlayerStatistics",
@@ -79,13 +93,38 @@ public class PlayFabController : MonoBehaviour
     {
         JsonObject jsonResult = (JsonObject) result.FunctionResult;
         jsonResult.TryGetValue("score", out object messageValue);
+        JsonObject resultMessage = messageValue as JsonObject;
+        JsonArray statistics = (JsonArray) resultMessage["Statistics"];
+        JsonObject scoreValue = statistics[0] as JsonObject;
+        if (scoreValue.Contains(new KeyValuePair<string, object>("StatisticsName", "Score")))
+        {
+            severScore = (int) scoreValue["Value"];
+        }
     }
 
     private void ErrorCallback(PlayFabError error)
     {
-        error.GenerateErrorReport();
+        var errorStr = error.GenerateErrorReport();
     }
     
+    #endregion Player Statistic
+
+    #region Leaderboard
+
+    private Action callbackLeaderboard;
+    public void GetLeaderboard(Action callback)
+    {
+        var request = new GetLeaderboardRequest {StartPosition = 0, StatisticName = "Score", MaxResultsCount = 20};
+        PlayFabClientAPI.GetLeaderboard(request, GetLeaderboardResult, ErrorCallback);
+        callbackLeaderboard = callback;
+    }
+
+    private void GetLeaderboardResult(GetLeaderboardResult result)
+    {
+        callbackLeaderboard.Invoke();
+    }
+    
+
     #endregion
     
 }
