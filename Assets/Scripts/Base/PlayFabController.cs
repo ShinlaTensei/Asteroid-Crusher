@@ -12,7 +12,10 @@ public class PlayFabController : MonoBehaviour
 {
     private string titleId = "9C7A3";
     private int severScore;
-    public void Start()
+
+    public bool IsLogin => PlayFabClientAPI.IsClientLoggedIn();
+
+    private void Start()
     {
         if (string.IsNullOrEmpty(PlayFabSettings.staticSettings.TitleId)){
             /*
@@ -111,8 +114,9 @@ public class PlayFabController : MonoBehaviour
 
     #region Leaderboard
 
-    private Action callbackLeaderboard;
-    public void GetLeaderboard(Action callback)
+    private Action<List<PlayerLeaderboardEntry>> callbackLeaderboard;
+    private List<PlayerLeaderboardEntry> _leaderboardEntries = new List<PlayerLeaderboardEntry>();
+    public void GetLeaderboard(Action<List<PlayerLeaderboardEntry>> callback)
     {
         var request = new GetLeaderboardRequest {StartPosition = 0, StatisticName = "Score", MaxResultsCount = 20};
         PlayFabClientAPI.GetLeaderboard(request, GetLeaderboardResult, ErrorCallback);
@@ -121,7 +125,8 @@ public class PlayFabController : MonoBehaviour
 
     private void GetLeaderboardResult(GetLeaderboardResult result)
     {
-        callbackLeaderboard.Invoke();
+        _leaderboardEntries = result.Leaderboard;
+        callbackLeaderboard.Invoke(result.Leaderboard);
     }
     
 

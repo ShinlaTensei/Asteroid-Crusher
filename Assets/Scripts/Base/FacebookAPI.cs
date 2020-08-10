@@ -26,6 +26,8 @@ namespace Base
 
         public Sprite UserAvatar => userAvatar;
 
+        private Action<bool> loginCallback;
+
         void Awake()
         {
             InitFacebook();
@@ -70,10 +72,11 @@ namespace Base
             }
         }
     
-        public void LoginFacebook()
+        public void LoginFacebook(Action<bool> callback)
         {
             if (!FB.IsInitialized) InitFacebook();
             if (FB.IsLoggedIn) return;
+            loginCallback = callback;
             if (GameManager.Instance.HasConnection() == false)
             {
                 GameManager.Instance.ShowMessage(Constant.Message.NetworkError);
@@ -86,6 +89,7 @@ namespace Base
     
         private void LoginFBCallback(ILoginResult result)
         {
+            loginCallback.Invoke(FB.IsLoggedIn);
             if (FB.IsLoggedIn)
             {
                 aToken = AccessToken.CurrentAccessToken;
@@ -98,6 +102,7 @@ namespace Base
             {
                 GameManager.Instance.ShowMessage(Constant.Message.LoginFbFailed);
                 GameManager.Instance.ShowLoading(false);
+                PlayerManager.Instance.UserData.facebookData.isLoginFacebook = false;
                 // Handle login failed
             }
         }

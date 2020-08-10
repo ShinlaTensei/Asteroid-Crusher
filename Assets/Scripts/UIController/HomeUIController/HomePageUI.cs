@@ -23,6 +23,8 @@ public class HomePageUI : MonoBehaviour
     [SerializeField]
     private GameObject connectFbButton;
 
+    [SerializeField] private LeaderboardPage leaderboardPage;
+
     public Image testImage;
 
     private void OnEnable()
@@ -52,6 +54,10 @@ public class HomePageUI : MonoBehaviour
             connectFbButton.GetComponent<RectTransform>().anchoredPosition.x,
             (GetComponent<RectTransform>().rect.height / 2.0f +
              connectFbButton.GetComponent<RectTransform>().rect.height / 2.0f) * -1f));
+        if (FB.IsLoggedIn)
+        {
+            connectFbButton.SetActive(false);
+        }
     }
 
     private void Start()
@@ -75,16 +81,18 @@ public class HomePageUI : MonoBehaviour
     public void ClickConnectFacebook()
     {
         GameManager.Instance.ShowLoading(true);
-        GameManager.Instance.facebookApi.LoginFacebook();
-        connectFbButton.SetActive(false);
+        GameManager.Instance.facebookApi.LoginFacebook(isLogin =>
+        {
+            if (isLogin) connectFbButton.SetActive(false);
+        });
+        
     }
 
     public void ClickLeaderboard()
     {
-        GameManager.Instance.playfabController.GetLeaderboard(() =>
-        {
-            Debug.Log("test");
-        });
+        gameObject.SetActive(false);
+        leaderboardPage.gameObject.SetActive(true);
+        leaderboardPage.Active();
     }
 
     // ****************************************************************
