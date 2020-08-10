@@ -15,7 +15,6 @@ public class ClusterBomb : BulletController
 
     public override void Fired(Vector3 direction, string tag)
     {
-        GameManager.Instance.Log("Vào ClusterBomb.Fired");
         // if (body == null)
         // {
         //     body = GetComponent<Rigidbody2D>();
@@ -28,7 +27,6 @@ public class ClusterBomb : BulletController
 
     IEnumerator ScheduleExplode()
     {
-        GameManager.Instance.Log("Vào ClusterBomb.ScheduleExplode");
         yield return new WaitForSeconds(timeExplose);
         DestroyBullet();
     }

@@ -27,7 +27,6 @@ public class HomePageUI : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.Instance.Log("Vào HomePageUI.OnEnable");
         GameManager.Instance.TweenFrom(singlePlayButton, new Vector3(
             (GetComponent<RectTransform>().rect.width / 2.0f +
              singlePlayButton.GetComponent<RectTransform>().rect.width / 2.0f) * -1f,
@@ -69,7 +68,6 @@ public class HomePageUI : MonoBehaviour
 
     public void ClickGoto(GameObject destination)
     {
-        GameManager.Instance.Log("Vào HomePageUI.ClickGoto");
         ICommand clickGoto = new ClickGoTo(gameObject);
         clickGoto.Execute(destination);
     }

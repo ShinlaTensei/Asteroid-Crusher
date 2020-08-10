@@ -46,7 +46,6 @@ public class Ship : MonoBehaviour
 
     public void Shoot(bool canShootOtherWeapon)
     {
-        GameManager.Instance.Log("Vào Ship.Shoot");
         if (!canShootOtherWeapon)
         {
             projectileName = Projectile.BLASTER_SMALL;
@@ -66,7 +65,6 @@ public class Ship : MonoBehaviour
 
     private void GetPowerUp(PowerUp pw, GameRunningState state)
     {
-        GameManager.Instance.Log("Vào Ship.GetPowerUp");
         if (pw.info.type == Powerup.HEALTH)
         {
             health = Mathf.Clamp(health + 1, 0, 5);
@@ -96,7 +94,6 @@ public class Ship : MonoBehaviour
 
     private void ActiveShield(float time, bool isActive = true)
     {
-        GameManager.Instance.Log("Vào Ship.ActiveShield");
         GameObject shield = Instantiate(shieldPrefab, transform.position, Quaternion.identity, transform);
         
         IEnumerator DeactiveShield(GameObject _shield)
@@ -112,7 +109,6 @@ public class Ship : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collide)
     {
-        GameManager.Instance.Log("Vào Ship.OnTriggerEnter2D");
         State state = GameManager.Instance.gameStateMachine.currentState;
         if (state is GameRunningState runningState)
         {

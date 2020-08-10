@@ -18,14 +18,12 @@ namespace Pattern.Implement
         {
             base.Enter();
             Time.timeScale = 1f;
-            GameManager.Instance.Log("Vào GameRunningState.Enter");
         }
 
         public void OnScored(int score, int money)
         {
             PlayerManager.Instance.UserData.money += money;
             onScored?.Invoke(score, money);
-            GameManager.Instance.Log("Vào GameRunningState.OnScored");
         }
 
         public void OnHit(int crrHealth)
@@ -35,13 +33,11 @@ namespace Pattern.Implement
                 Handheld.Vibrate();
             }
             onHit?.Invoke(crrHealth);
-            GameManager.Instance.Log("Vào GameRunningState.OnHit");
         }
 
         public void InvokeOnGetPowerUp(PowerUpInfo type, object additionalData = null)
         {
             OnGetPowerUp?.Invoke(type, additionalData);
-            GameManager.Instance.Log("Vào GameRunningState.InvokeOnGetPowerUp");
         }
     }
 
@@ -51,7 +47,6 @@ namespace Pattern.Implement
         {
             base.Enter();
             Time.timeScale = 0;
-            GameManager.Instance.Log("Vào GamePauseState.Enter");
         }
     }
 }

@@ -88,7 +88,6 @@ namespace Base
         {
             if (FB.IsLoggedIn)
             {
-                GameManager.Instance.Log("GameManager.LoginFBCallback login success");
                 aToken = AccessToken.CurrentAccessToken;
 
                 GetApi();
@@ -97,7 +96,6 @@ namespace Base
             }
             else
             {
-                GameManager.Instance.Log("GameManager.LoginFBCallback login failed");
                 GameManager.Instance.ShowMessage(Constant.Message.LoginFbFailed);
                 GameManager.Instance.ShowLoading(false);
                 // Handle login failed

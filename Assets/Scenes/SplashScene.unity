@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65b645c5925f22c4a9844492fd8f0a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDebug: 0
+  isDebug: 1
   loadingPrefab: {fileID: 6478602307538684316, guid: 182484d25d5c1d3448a2c3257b4294f2,
     type: 3}
 --- !u!4 &94525072

@@ -12,7 +12,6 @@ public class LoadingScene : MonoBehaviour
     public Text percent;
     IEnumerator LoadAsyncScene()
     {
-        GameManager.Instance.Log("Vào LoadingScene.LoadAsyncScene");
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("HomeScene");
         asyncOperation.allowSceneActivation = false;
 
@@ -36,7 +35,6 @@ public class LoadingScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.Instance.Log("Vào LoadingScene.Start");
         logo.SetActive(false);
         loadingBar.SetActive(true);
         StartCoroutine(LoadAsyncScene());

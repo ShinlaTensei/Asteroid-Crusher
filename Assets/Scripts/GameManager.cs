@@ -26,7 +26,6 @@ public class GameManager : Singleton<GameManager>
     // Start is called before the first frame update
     void Start()
     {
-        Log("Vào GameManager.Start");
         if (File.Exists(Application.persistentDataPath + "/log.txt"))
         {
             File.Delete(Application.persistentDataPath + "/log.txt");
@@ -40,7 +39,6 @@ public class GameManager : Singleton<GameManager>
 
     private void OnEnable()
     {
-        Log("Vào GameManager.OnEnable");
 
     }
 
@@ -49,22 +47,30 @@ public class GameManager : Singleton<GameManager>
         
     }
 
+    private void Update()
+    {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
+        }
+    }
+
     private void OnApplicationQuit()
     {
-        Log("Vào GameManager.OnApplicationQuit");
-        Debug.Log("Game quited");
         m_ShuttingDown = true;
         SaveLoad.SaveToBinary(PlayerManager.Instance.UserData, Constant.Path.playerData);
     }
 
     public void ShowMessage(string message)
     {
-        Log("Vào GameManager.ShowMessage");
+        
     }
 
     public void ShowLoading(bool isLoading)
     {
-        Log("Vào GameManager.ShowLoading");
         if (isLoading)
         {
             loadingPanel = Instantiate(loadingPrefab);
@@ -79,20 +85,17 @@ public class GameManager : Singleton<GameManager>
 
     public void TweenFrom(GameObject target, Func<Vector3> startPos)
     {
-        Log("Vào GameManager.TweenFrom");
         iTween.MoveFrom(target, iTween.Hash("position", startPos.Invoke(), "easeType", iTween.EaseType.easeInBack, 
             "time", .75f));
     }
     public void TweenFrom(GameObject target, Vector3 startPos)
     {
-        Log("Vào GameManager.TweenFrom");
         iTween.MoveFrom(target, iTween.Hash("position", startPos, "easeType", iTween.EaseType.easeInBack, 
             "time", .75f));
     }
 
     public bool HasConnection()
     {
-        Log("Vào GameManager.HasConnection");
         NativeArray<bool> result = new NativeArray<bool>(1, Allocator.TempJob);
         CheckConnectionJob networkJob = new CheckConnectionJob();
         networkJob.result = result;
@@ -103,18 +106,6 @@ public class GameManager : Singleton<GameManager>
         bool hasConnection = result[0];
         result.Dispose();
         return hasConnection;
-    }
-
-    public void Log(string message)
-    {
-        if (isDebug)
-        {
-            string path = Application.persistentDataPath + "/log.txt";
-            using (StreamWriter write = new StreamWriter(path, true))
-            {
-                write.WriteLine(message);
-            }
-        }
     }
 
     private void LoadPlayerData()

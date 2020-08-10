@@ -27,7 +27,6 @@ namespace Base
 
         public static void LoadFromBinary<T>(out T result, string filename)
         {
-            GameManager.Instance.Log("Vào SaveLoad.LoadFromBinary");
             string path = Application.persistentDataPath + "/" + filename;
             if (File.Exists(path))
             {
@@ -42,7 +41,6 @@ namespace Base
 
         public static void SaveToJson(object data, string filename)
         {
-            GameManager.Instance.Log("Vào SaveLoad.SaveToJson");
             FileStream stream = new FileStream(Application.persistentDataPath + "/" + filename, FileMode.Create);
             StreamWriter sw = new StreamWriter(stream);
             try
@@ -52,7 +50,6 @@ namespace Base
             }
             catch (Exception e)
             {
-                GameManager.Instance.Log("Vào SaveLoad.LoadFromJson: " + e.Message);
                 throw;
             }
             sw.Close();
@@ -61,7 +58,6 @@ namespace Base
 
         public static void LoadFromJson<T>(out T result, string filename)
         {
-            GameManager.Instance.Log("Vào SaveLoad.LoadFromJson");
             string path = Application.persistentDataPath + "/" + filename;
             if (File.Exists(path))
             {
