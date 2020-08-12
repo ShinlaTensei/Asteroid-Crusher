@@ -14,6 +14,7 @@ namespace Constant
         public const string DontOwn = "You don't have this item in stock !!!";
         public const string NetworkError = "You don't have internet connection or its being interupted. Try again later!";
         public const string LoginFbFailed = "Login failed. Please try again later!";
+        public const string HaveNotLogin = "We cannot connect you to server, please login!!!";
     }
 
     public struct IndexScene

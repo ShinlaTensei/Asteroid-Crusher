@@ -90,9 +90,22 @@ public class HomePageUI : MonoBehaviour
 
     public void ClickLeaderboard()
     {
-        gameObject.SetActive(false);
-        leaderboardPage.gameObject.SetActive(true);
-        leaderboardPage.Active();
+        if (!FB.IsLoggedIn) GameManager.Instance.ShowMessage(Constant.Message.HaveNotLogin, () =>
+        {
+            ClickConnectFacebook();
+        }, () =>
+        {
+            gameObject.SetActive(false);
+            leaderboardPage.gameObject.SetActive(true);
+            leaderboardPage.Active();
+        });
+        else
+        {
+            gameObject.SetActive(false);
+            leaderboardPage.gameObject.SetActive(true);
+            leaderboardPage.Active();
+        }
+
     }
 
     // ****************************************************************

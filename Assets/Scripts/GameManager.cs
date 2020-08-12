@@ -5,12 +5,15 @@ using Base;
 using Unity.Collections;
 using Unity.Jobs;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
+using UnityEngine.Events;
 
 public class GameManager : Singleton<GameManager>
 {
     [NonSerialized] public readonly StateMachine gameStateMachine = new StateMachine();
     [SerializeField] private bool isDebug = true;
     [SerializeField] private GameObject loadingPrefab;
+    [SerializeField] private GameObject notice;
 
     public FacebookAPI facebookApi { get; private set; }
     public PlayFabController playfabController { get; private set; }
@@ -64,9 +67,13 @@ public class GameManager : Singleton<GameManager>
         SaveLoad.SaveToBinary(PlayerManager.Instance.UserData, Constant.Path.playerData);
     }
 
-    public void ShowMessage(string message)
+    public void ShowMessage(string message, UnityAction acceptPress = null, UnityAction cancelPress = null)
     {
-        
+        GameObject noticeObject = Instantiate(notice);
+        var canvas = FindObjectOfType<Canvas>();
+        var instance = noticeObject.GetComponent<Notice>();
+        instance.Init(message, acceptPress, cancelPress);
+        noticeObject.transform.SetParent(canvas.transform, false);
     }
 
     public void ShowLoading(bool isLoading)
@@ -74,7 +81,7 @@ public class GameManager : Singleton<GameManager>
         if (isLoading)
         {
             loadingPanel = Instantiate(loadingPrefab);
-            var canvas = GameObject.FindObjectOfType<Canvas>();
+            var canvas = FindObjectOfType<Canvas>();
             loadingPanel.transform.SetParent(canvas.transform, false);
         }
         else

@@ -25,6 +25,7 @@ public class LeaderboardPage : MonoBehaviour
 
     public void Active()
     {
+        content.transform.DetachChildren();
         if (GameManager.Instance.playfabController.IsLogin)
         {
             GameManager.Instance.playfabController.GetLeaderboard((leaderboard) =>

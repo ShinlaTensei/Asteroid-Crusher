@@ -51,6 +51,11 @@ public class PlayFabController : MonoBehaviour
         {
             Debug.Log(updateResult.DisplayName);
         }, ErrorCallback);
+        string url = GameManager.Instance.facebookApi.AvatarUrl;
+        PlayFabClientAPI.UpdateAvatarUrl(new UpdateAvatarUrlRequest{ImageUrl = url}, updateResult =>
+        {
+            
+        }, ErrorCallback);
     }
 
     private void OnLoginFailure(PlayFabError error)

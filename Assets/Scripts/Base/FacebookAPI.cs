@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using Facebook.Unity;
 using Facebook.MiniJSON;
 using Unity.Collections;
 using Unity.Jobs;
+using UnityEngine.Events;
 using UnityEngine.Networking;
 
 namespace Base
@@ -25,6 +27,10 @@ namespace Base
         private Sprite userAvatar;
 
         public Sprite UserAvatar => userAvatar;
+        
+        private string avatarUrl = String.Empty;
+
+        public string AvatarUrl => avatarUrl;
 
         private Action<bool> loginCallback;
 
@@ -79,7 +85,13 @@ namespace Base
             loginCallback = callback;
             if (GameManager.Instance.HasConnection() == false)
             {
-                GameManager.Instance.ShowMessage(Constant.Message.NetworkError);
+                GameManager.Instance.ShowMessage(Constant.Message.NetworkError, () =>
+                {
+                    GameManager.Instance.ShowLoading(false);
+                }, () =>
+                {
+                    GameManager.Instance.ShowLoading(false);
+                });
                 return;
             }
             
@@ -124,6 +136,7 @@ namespace Base
                 data.TryGetValue("data", out detail);
                 detailAvatar = detail;
                 string url = detail["url"] as string;
+                avatarUrl = url;
                 StartCoroutine(GetRequest(url));
             }
             else
