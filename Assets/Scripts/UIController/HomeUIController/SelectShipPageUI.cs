@@ -27,7 +27,7 @@ public class SelectShipPageUI : MonoBehaviour
         SaveLoad.LoadFromBinary(out List<ShipInfo> info, Constant.Path.shipData);
         for (int i = 0; i < listShip.Count; ++i)
         {
-            listShip[i].shipInfo = info[i];
+            if (info != null) listShip[i].shipInfo = info[i];
             GameObject shipInfo = Instantiate(shipInfoPage, Vector3.zero, Quaternion.identity,
                 contentNode.transform);
             shipInfo.GetComponent<ShipInfoPage>().InitPageData(listShip[i]);

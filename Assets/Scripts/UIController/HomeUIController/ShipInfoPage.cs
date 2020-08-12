@@ -78,9 +78,13 @@ public class ShipInfoPage : MonoBehaviour
     
     public void ClickChoseShip()
     {
-        Ship thisShip = GetComponent<Ship>();
-        ICommand clickChoseShip = new ClickChoseShip(thisShip);
+        ICommand clickChoseShip = new ClickChoseShip(thisShip, OnClickChooseShip);
         if (clickChoseShip.CanExecute()) clickChoseShip.Execute();
+    }
+
+    private void OnClickChooseShip()
+    {
+        
     }
 
     private void AllowUpgradeShip()

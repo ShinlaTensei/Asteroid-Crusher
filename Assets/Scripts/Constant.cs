@@ -10,7 +10,7 @@ namespace Constant
 
     public struct Message
     {
-        public const string NotEnoughMoney = "You don't have enough money to di this !!!";
+        public const string NotEnoughMoney = "You don't have enough money to do this !!!";
         public const string DontOwn = "You don't have this item in stock !!!";
         public const string NetworkError = "You don't have internet connection or its being interupted. Try again later!";
         public const string LoginFbFailed = "Login failed. Please try again later!";

@@ -85,10 +85,12 @@ namespace Pattern.Implement
     public class ClickChoseShip : ICommand
     {
         private Ship ship;
+        private Action chooseCallback;
 
-        public ClickChoseShip(Ship item)
+        public ClickChoseShip(Ship item, Action callback)
         {
             ship = item;
+            chooseCallback = callback;
         }
 
         public bool CanExecute(object parameter = null)
@@ -105,6 +107,7 @@ namespace Pattern.Implement
         public void Execute(object parameter)
         {
             PlayerManager.Instance.choosingShip = ship.gameObject;
+            chooseCallback?.Invoke();
         }
     }
     /// <summary>
