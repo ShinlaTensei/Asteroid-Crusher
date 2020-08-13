@@ -17,6 +17,7 @@ public class ShipInfoPage : MonoBehaviour
     [SerializeField] private Image shipModel;
     [SerializeField] private Button buyButton;
     [SerializeField] private Button chooseButton;
+    [SerializeField] private GameObject chosen;
     public Sprite[] spritesAttributeLevel = new Sprite[6];
     private Ship thisShip;
 
@@ -35,16 +36,23 @@ public class ShipInfoPage : MonoBehaviour
         int levelEndurance = (int) ((crrInfo.endurance % crrInfo.originEndurance) /
                                     ShipUpgrade.OffsetAttributeLevel);
         enduranceLevel.sprite = spritesAttributeLevel[levelEndurance];
-        if (crrInfo.isOwn)
+        if (crrInfo.isOwn && !crrInfo.isChosen)
         {
             priceText.text = "Owned";
             priceText.color = Color.green;
             buyButton.gameObject.SetActive(false);
+            chosen.SetActive(false);
             chooseButton.gameObject.SetActive(true);
             AllowUpgradeShip();
         }
+        else if (crrInfo.isChosen)
+        {
+            chooseButton.gameObject.SetActive(false);
+            chosen.SetActive(true);
+        }
         else
         {
+            chosen.SetActive(false);
             priceText.text = crrInfo.price.ToString();
         }
 
@@ -84,7 +92,10 @@ public class ShipInfoPage : MonoBehaviour
 
     private void OnClickChooseShip()
     {
-        
+        thisShip.shipInfo.isChosen = true;
+        chosen.SetActive(true);
+        buyButton.gameObject.SetActive(false);
+        chooseButton.gameObject.SetActive(false);
     }
 
     private void AllowUpgradeShip()

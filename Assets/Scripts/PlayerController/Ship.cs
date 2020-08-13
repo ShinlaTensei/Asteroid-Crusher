@@ -143,4 +143,5 @@ public class ShipInfo
     public int originFuelConsumption;
     public int originEndurance;
     public bool isOwn = false;
+    public bool isChosen = false;
 }

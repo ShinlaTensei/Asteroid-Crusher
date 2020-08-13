@@ -97,14 +97,13 @@ public class SelectShipPageUI : MonoBehaviour
 
     public void ClickAccept()
     {
-        if (listShip.Count > 0)
+        if (PlayerManager.Instance.choosingShip != null)
         {
-            PlayerManager.Instance.choosingShip = listShip[0].gameObject;
             GameManager.Instance.gameStateMachine.Initialize(new GameBeginState());
         }
         else
         {
-            GameManager.Instance.ShowMessage("Không có ship");
+            GameManager.Instance.ShowMessage("Please choose a ship to continue!");
         }
     }
 
