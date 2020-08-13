@@ -40,10 +40,18 @@ namespace Constant
     {
         SPEED, HEALTH, MISSLES, SHIELD, CLUSTER
     }
+    
+    public enum TypeUpgrade
+    {
+        Guns, Speed, FuelConsumption, Endurance
+    }
 
     public struct Const
     {
         public const float SPEED_BOOST = 20.0f;
+        public const int PRICE_UPGRADE = 1200;
+        public const int MAX_NUMBER_CANNON = 3;
+        public const int MAX_OTHER_SHIP_UPGRADE = 5;
     }
 
     public struct Projectile

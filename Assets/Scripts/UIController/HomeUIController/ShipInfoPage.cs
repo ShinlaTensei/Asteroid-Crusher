@@ -17,7 +17,10 @@ public class ShipInfoPage : MonoBehaviour
     [SerializeField] private Image shipModel;
     [SerializeField] private Button buyButton;
     [SerializeField] private Button chooseButton;
-    [SerializeField] private GameObject chosen;
+    [SerializeField] private Button upNumCannonButton;
+    [SerializeField] private Button upSpeedButton;
+    [SerializeField] private Button upFuelConsumptionButton;
+    [SerializeField] private Button upEnduranceButton;
     public Sprite[] spritesAttributeLevel = new Sprite[6];
     private Ship thisShip;
 
@@ -36,26 +39,18 @@ public class ShipInfoPage : MonoBehaviour
         int levelEndurance = (int) ((crrInfo.endurance % crrInfo.originEndurance) /
                                     ShipUpgrade.OffsetAttributeLevel);
         enduranceLevel.sprite = spritesAttributeLevel[levelEndurance];
-        if (crrInfo.isOwn && !crrInfo.isChosen)
+        if (crrInfo.isOwn)
         {
             priceText.text = "Owned";
             priceText.color = Color.green;
             buyButton.gameObject.SetActive(false);
-            chosen.SetActive(false);
             chooseButton.gameObject.SetActive(true);
-            AllowUpgradeShip();
-        }
-        else if (crrInfo.isChosen)
-        {
-            chooseButton.gameObject.SetActive(false);
-            chosen.SetActive(true);
         }
         else
         {
-            chosen.SetActive(false);
             priceText.text = crrInfo.price.ToString();
         }
-
+        AllowUpgradeShip();
         shipModel.sprite = ship.shipImage[crrInfo.numberOfCannon - 1];
     }
     
@@ -92,14 +87,35 @@ public class ShipInfoPage : MonoBehaviour
 
     private void OnClickChooseShip()
     {
-        thisShip.shipInfo.isChosen = true;
-        chosen.SetActive(true);
-        buyButton.gameObject.SetActive(false);
-        chooseButton.gameObject.SetActive(false);
+        
     }
 
     private void AllowUpgradeShip()
     {
-        
+        if (PlayerManager.Instance.UserData.money >= Const.PRICE_UPGRADE && thisShip.shipInfo.isOwn)
+        {
+            upNumCannonButton.gameObject.SetActive(true);
+            upSpeedButton.gameObject.SetActive(true);
+            upFuelConsumptionButton.gameObject.SetActive(true);
+            upEnduranceButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            upNumCannonButton.gameObject.SetActive(false);
+            upSpeedButton.gameObject.SetActive(false);
+            upFuelConsumptionButton.gameObject.SetActive(false);
+            upEnduranceButton.gameObject.SetActive(false);
+        }
+    }
+
+    public void ClickUpgradeShip(int type)
+    {
+        GameManager.Instance.ShowMessage($"Do you want to spent {Const.PRICE_UPGRADE} to upgrade this ship?", () =>
+        {
+            var command = new ClickUpgradeShip((TypeUpgrade) type, ref thisShip);
+            if (command.CanExecute()) command.Execute();
+            InitPageData(thisShip);
+        });
+
     }
 }

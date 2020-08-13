@@ -107,6 +107,10 @@ namespace Pattern.Implement
         public void Execute(object parameter)
         {
             PlayerManager.Instance.choosingShip = ship.gameObject;
+            GameManager.Instance.ShowMessage("Play now?", () =>
+            {
+                GameManager.Instance.gameStateMachine.Initialize(new GameBeginState());
+            });
             chooseCallback?.Invoke();
         }
     }
@@ -115,17 +119,12 @@ namespace Pattern.Implement
     /// </summary>
     public class ClickUpgradeShip : ICommand
     {
-        enum TypeUpgrade
-        {
-            Guns, Speed, FuelConsumption, Endurance
-        }
-
         private TypeUpgrade type;
         private Ship ship;
 
-        public ClickUpgradeShip(int t, Ship item)
+        public ClickUpgradeShip(TypeUpgrade t, ref Ship item)
         {
-            type = (TypeUpgrade) t;
+            type = t;
             ship = item;
         }
         public bool CanExecute(object parameter = null)
@@ -139,9 +138,27 @@ namespace Pattern.Implement
             return true;
         }
 
-        public void Execute(object parameter)
+        public void Execute(object parameter = null)
         {
+            switch (type)
+            {
+                case TypeUpgrade.Guns:
+                    ship.shipInfo.numberOfCannon += 1;
+                    break;
+                case TypeUpgrade.Speed:
+                    ship.shipInfo.speed += 15;
+                    break;
+                case TypeUpgrade.FuelConsumption:
+                    ship.shipInfo.fuelConsumption += 15;
+                    break;
+                case TypeUpgrade.Endurance:
+                    ship.shipInfo.endurance += 15;
+                    break;
+                default:
+                    break;
+            }
             
+            PlayerManager.Instance.BuyItem(Const.PRICE_UPGRADE);
         }
     }
 }
