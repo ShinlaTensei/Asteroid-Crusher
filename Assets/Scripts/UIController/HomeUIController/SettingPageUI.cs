@@ -1,6 +1,6 @@
 ﻿using System;
-using Pattern.Interface;
-using Pattern.Implement;
+using Base.Pattern.Interface;
+using Base.Pattern.Implement;
 using UnityEngine;
 
 public class SettingPageUI : MonoBehaviour

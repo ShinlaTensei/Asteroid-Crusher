@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Constant;
 using Pattern;
-using Pattern.Implement;
+using Base.Pattern.Implement;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -152,7 +152,7 @@ public class MainGameController : MonoBehaviour
         for (int i = 0; i < arrayStarsBg.Length; ++i)
         {
             string tag = $"star0{i + 1}";
-            GameObject starBg = Base.ObjectPooler.Instance.SpawnFromPool(tag, originPos[i], Quaternion.identity);
+            GameObject starBg = ObjectPooler.Instance.SpawnFromPool(tag, originPos[i], Quaternion.identity);
             
         }
     }

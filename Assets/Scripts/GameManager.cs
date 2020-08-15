@@ -2,6 +2,7 @@
 using Pattern;
 using UnityEngine;
 using Base;
+using Base.Module;
 using Unity.Collections;
 using Unity.Jobs;
 using System.IO;

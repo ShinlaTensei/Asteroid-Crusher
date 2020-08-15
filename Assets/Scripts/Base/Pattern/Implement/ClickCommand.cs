@@ -1,10 +1,10 @@
 ﻿using System;
-using Pattern.Interface;
+using Base.Pattern.Interface;
 using UnityEngine;
 using Constant;
 // ReSharper disable RedundantJumpStatement
 
-namespace Pattern.Implement
+namespace Base.Pattern.Implement
 {
     public class ClickGoTo : ICommand
     {
@@ -146,13 +146,13 @@ namespace Pattern.Implement
                     ship.shipInfo.numberOfCannon += 1;
                     break;
                 case TypeUpgrade.Speed:
-                    ship.shipInfo.speed += 15;
+                    ship.shipInfo.speed += ShipUpgrade.OffsetAttributeLevel;
                     break;
                 case TypeUpgrade.FuelConsumption:
-                    ship.shipInfo.fuelConsumption += 15;
+                    ship.shipInfo.fuelConsumption += ShipUpgrade.OffsetAttributeLevel;
                     break;
                 case TypeUpgrade.Endurance:
-                    ship.shipInfo.endurance += 15;
+                    ship.shipInfo.endurance += ShipUpgrade.OffsetAttributeLevel;
                     break;
                 default:
                     break;

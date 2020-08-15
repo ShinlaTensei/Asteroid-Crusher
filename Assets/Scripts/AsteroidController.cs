@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pattern.Implement;
+using Base.Pattern.Implement;
 
 public class AsteroidController : MonoBehaviour
 {

@@ -1,4 +1,4 @@
-﻿using Pattern.Implement;
+﻿using Base.Pattern.Implement;
 using System;
 namespace Pattern
 {

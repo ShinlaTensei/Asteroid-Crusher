@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pattern.Implement
+namespace Base.Pattern.Implement
 {
     public abstract class State
     {

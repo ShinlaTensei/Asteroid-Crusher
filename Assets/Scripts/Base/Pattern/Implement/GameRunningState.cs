@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using Constant;
-using Pattern.Implement;
+using Base.Pattern.Implement;
 using PlayFab;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Pattern.Implement
+namespace Base.Pattern.Implement
 {
     public class GameRunningState : State
     {

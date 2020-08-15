@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Base;
-using Pattern.Interface;
+using Base.Module;
+using Base.Pattern.Interface;
 using UnityEngine;
 using UnityEngine.UI;
-using Pattern.Implement;
+using Base.Pattern.Implement;
 
 public class SelectShipPageUI : MonoBehaviour
 {

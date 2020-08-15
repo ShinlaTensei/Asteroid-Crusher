@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
-namespace Pattern.Implement
+namespace Base.Pattern.Implement
 {
     public class GameBeginState : State
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Pattern.Interface
+namespace Base.Pattern.Interface
 {
     public interface ICommand
     {

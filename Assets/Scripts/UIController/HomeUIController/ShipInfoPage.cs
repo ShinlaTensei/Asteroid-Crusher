@@ -2,8 +2,8 @@
 using Constant;
 using UnityEngine;
 using UnityEngine.UI;
-using Pattern.Interface;
-using Pattern.Implement;
+using Base.Pattern.Interface;
+using Base.Pattern.Implement;
 using UnityEngine.SceneManagement;
 
 public class ShipInfoPage : MonoBehaviour

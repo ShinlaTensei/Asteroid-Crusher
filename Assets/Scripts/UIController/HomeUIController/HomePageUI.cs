@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Base;
-using Pattern.Implement;
+using Base.Pattern.Implement;
 using UnityEngine;
 using UnityEngine.UI;
-using ICommand = Pattern.Interface.ICommand;
+using ICommand = Base.Pattern.Interface.ICommand;
 using Facebook.Unity;
 
 public class HomePageUI : MonoBehaviour

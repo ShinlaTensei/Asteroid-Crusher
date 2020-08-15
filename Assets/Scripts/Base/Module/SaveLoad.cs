@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace Base
+namespace Base.Module
 {
     public static class SaveLoad
     {

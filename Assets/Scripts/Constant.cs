@@ -5,7 +5,7 @@ namespace Constant
 {
     public struct ShipUpgrade
     {
-        public const float OffsetAttributeLevel = 15f;
+        public const int OffsetAttributeLevel = 15;
     }
 
     public struct Message
