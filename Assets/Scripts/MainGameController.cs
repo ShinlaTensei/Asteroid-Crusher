@@ -18,7 +18,7 @@ public class MainGameController : MonoBehaviour
     private Ship shipHandler;
 
     public Joystick joystick;
-
+    
     [SerializeField] private Text scoreTextThousand;
     [SerializeField] private Text scoreTextBigThousand;
     [SerializeField] private GameObject healthContainer;
@@ -161,6 +161,18 @@ public class MainGameController : MonoBehaviour
     {
         GameManager.Instance.gameStateMachine.ChangeState(new GameOverState());
         GameManager.Instance.gameStateMachine.ChangeState(new GameExitState());
+    }
+
+    public void ClickPauseMenu(GameObject pauseMenu)
+    {
+        GameManager.Instance.gameStateMachine.ChangeState(new GamePauseState());
+        pauseMenu.SetActive(true);
+    }
+
+    public void ClickResumeGame(GameObject pauseMenu)
+    {
+        GameManager.Instance.gameStateMachine.ChangeState(new GameRunningState());
+        pauseMenu.SetActive(false);
     }
     
     /// <summary>

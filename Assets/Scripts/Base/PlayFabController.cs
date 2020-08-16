@@ -42,10 +42,10 @@ public class PlayFabController : MonoBehaviour
 
     private void OnLoginSuccess(LoginResult result)
     {
-        Debug.Log("Congratulations, you made your first successful API call!");
         PlayerManager.Instance.UserData.isLoginToPlayFab = true;
         isLogin = true;
         string name = GameManager.Instance.facebookApi.UserName;
+        PlayerManager.Instance.UserData.PlayFabData.Id = result.PlayFabId;
         var request = new UpdateUserTitleDisplayNameRequest {DisplayName = name};
         PlayFabClientAPI.UpdateUserTitleDisplayName(request, updateResult =>
         {

@@ -105,7 +105,6 @@ namespace Base
             if (FB.IsLoggedIn)
             {
                 aToken = AccessToken.CurrentAccessToken;
-
                 GetApi();
                 GameManager.Instance.playfabController.LoginWithFacebook(aToken.TokenString);
                 PlayerManager.Instance.UserData.facebookData.isLoginFacebook = true;

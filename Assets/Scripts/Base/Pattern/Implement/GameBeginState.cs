@@ -28,6 +28,7 @@ namespace Base.Pattern.Implement
         public override void Enter()
         {
             base.Enter();
+            Time.timeScale = 1f;
             Scene currScene = SceneManager.GetActiveScene();
             if (currScene == SceneManager.GetSceneByBuildIndex(Constant.IndexScene.MainScene))
             {

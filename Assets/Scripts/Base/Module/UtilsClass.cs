@@ -37,7 +37,7 @@ namespace Base.Module
             return str + result;
         }
         /// <summary>
-        /// Convert money string with format 1.xxx.xxx or 1,xxx,xxx to Float
+        /// Convert money string with format x.xxx.xxx or x,xxx,xxx to Float
         /// </summary>
         /// <param name="moneyStr"></param>
         /// <returns>money in float</returns>

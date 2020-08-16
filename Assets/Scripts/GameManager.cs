@@ -6,13 +6,11 @@ using Base.Module;
 using Unity.Collections;
 using Unity.Jobs;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
 using UnityEngine.Events;
 
 public class GameManager : Singleton<GameManager>
 {
     [NonSerialized] public readonly StateMachine gameStateMachine = new StateMachine();
-    [SerializeField] private bool isDebug = true;
     [SerializeField] private GameObject loadingPrefab;
     [SerializeField] private GameObject notice;
 
@@ -39,16 +37,6 @@ public class GameManager : Singleton<GameManager>
         playfabController = GetComponent<PlayFabController>();
         if (File.Exists(Application.persistentDataPath + "/" + Constant.Path.playerData)) LoadPlayerData();
         else PlayerManager.Instance.InitData(new PlayerData(3000, 0));
-    }
-
-    private void OnEnable()
-    {
-
-    }
-
-    private void OnDisable()
-    {
-        
     }
 
     private void Update()

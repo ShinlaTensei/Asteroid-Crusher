@@ -11,18 +11,6 @@ public class LeaderboardPage : MonoBehaviour
     [SerializeField] private List<Sprite> rankSprite = new List<Sprite>(4);
 
     [SerializeField] private GameObject content;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Active()
     {
         content.transform.DetachChildren();

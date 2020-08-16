@@ -7,6 +7,7 @@ public class PlayerData
     public int score;
 
     public UserFacebookData facebookData = new UserFacebookData();
+    public UserPlayFabData PlayFabData = new UserPlayFabData();
     public bool isLoginToPlayFab = false;
     public PlayerData(int money, int score)
     {
@@ -26,4 +27,10 @@ public class UserFacebookData
 {
     public bool isLoginFacebook = false;
     public string facebookUserName = String.Empty;
+}
+
+[Serializable]
+public class UserPlayFabData
+{
+    public string Id = String.Empty;
 }
