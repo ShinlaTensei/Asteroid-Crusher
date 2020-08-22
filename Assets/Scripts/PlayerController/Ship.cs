@@ -16,7 +16,7 @@ public class Ship : MonoBehaviour
     #region ************************** Private fields *******************************
     private Rigidbody2D rigidBody;
     private int health = 5;
-    private string projectileName = Projectile.CLUSTER_BOMB;
+    private string projectileName = Projectile.BLASTER_SMALL;
 
     public SpriteRenderer ShipSprite { get; private set; }
     [SerializeField] private GameObject shieldPrefab;

@@ -58,3 +58,5 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+Assets/Unity-Logs-Viewer/
+Assets/Unity-Logs-Viewer.meta

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using Facebook.Unity;
 using Facebook.MiniJSON;
+using Newtonsoft.Json;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine.Events;
@@ -16,14 +16,13 @@ namespace Base
     {
         public AccessToken aToken { get; private set; }
 
-        private Dictionary<string, object> graphApiResult;
-        private Dictionary<string, object> detailAvatar;
+        private GraphPictureResult graphApiResult;
         private IJob currentJob;
 
         private string userName;
         public string UserName => userName;
-        private int userId;
-        public int UserId => userId;
+        private long userId;
+        public long UserId => userId;
         private Sprite userAvatar;
 
         public Sprite UserAvatar => userAvatar;
@@ -33,6 +32,33 @@ namespace Base
         public string AvatarUrl => avatarUrl;
 
         private Action<bool> loginCallback;
+
+        internal class PictureResult
+        {
+            internal class Data
+            {
+                [JsonProperty("height")]
+                public int height;
+                [JsonProperty("is_silhouette")]
+                public bool is_silhouette;
+                [JsonProperty("url")]
+                public string url;
+                [JsonProperty("width")]
+                public int width;
+            }
+            [JsonProperty("data")]
+            public Data data;
+        }
+
+        internal class GraphPictureResult
+        {
+            [JsonProperty("id")]
+            public string id;
+            [JsonProperty("name")]
+            public string name;
+            [JsonProperty("picture")]
+            public PictureResult picture;
+        }
 
         void Awake()
         {
@@ -85,12 +111,12 @@ namespace Base
             loginCallback = callback;
             if (GameManager.Instance.HasConnection() == false)
             {
-                GameManager.Instance.ShowMessage(Constant.Message.NetworkError, () =>
+                ShowMessage(Constant.Message.NetworkError, () =>
                 {
-                    GameManager.Instance.ShowLoading(false);
+                    ShowLoading(false);
                 }, () =>
                 {
-                    GameManager.Instance.ShowLoading(false);
+                    ShowLoading(false);
                 });
                 return;
             }
@@ -111,8 +137,8 @@ namespace Base
             }
             else
             {
-                GameManager.Instance.ShowMessage(Constant.Message.LoginFbFailed);
-                GameManager.Instance.ShowLoading(false);
+                ShowMessage(Constant.Message.LoginFbFailed);
+                ShowLoading(false);
                 PlayerManager.Instance.UserData.facebookData.isLoginFacebook = false;
                 // Handle login failed
             }
@@ -127,20 +153,22 @@ namespace Base
         {
             if (result.Error == null)
             {
-                graphApiResult = Json.Deserialize(result.RawResult) as Dictionary<string, object>;
-                graphApiResult.TryGetValue("name", out userName);
-                graphApiResult.TryGetValue("id", out userId);
-                Dictionary<string, object> data = graphApiResult["picture"] as Dictionary<string, object>;
-                Dictionary<string, object> detail;
-                data.TryGetValue("data", out detail);
-                detailAvatar = detail;
-                string url = detail["url"] as string;
-                avatarUrl = url;
-                StartCoroutine(GetRequest(url));
+                graphApiResult = JsonConvert.DeserializeObject<GraphPictureResult>(result.RawResult);
+                if (graphApiResult.picture != null)
+                {
+                    userName = graphApiResult.name;
+                    userId = long.Parse(graphApiResult.id);
+                    avatarUrl = graphApiResult.picture.data.url;
+                    StartCoroutine(GetRequest(avatarUrl));
+                }
+                else
+                {
+                    ShowLoading(false);
+                }
             }
             else
             {
-                GameManager.Instance.ShowLoading(false);
+                ShowLoading(false);
             }
         }
 
@@ -151,13 +179,23 @@ namespace Base
             if (!request.isNetworkError || !request.isHttpError)
             {
                 var texture = ((DownloadHandlerTexture) request.downloadHandler).texture;
-                var width = Convert.ToSingle(detailAvatar["width"]);
-                var height = Convert.ToSingle(detailAvatar["height"]);
+                var width = graphApiResult.picture.data.width;
+                var height = graphApiResult.picture.data.height;
                 var rect = new Rect(0,0, width, height);
                 userAvatar = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
                 userAvatar.name = "Avatar";
             }
-            GameManager.Instance.ShowLoading(false);
+            ShowLoading(false);
+        }
+        
+        private void ShowLoading(bool isShow)
+        {
+            GameManager.Instance.ShowLoading(isShow);
+        }
+
+        private void ShowMessage(string message, UnityAction acceptPress = null, UnityAction cancelPress = null)
+        {
+            GameManager.Instance.ShowMessage(message, acceptPress, cancelPress);
         }
     }
 }

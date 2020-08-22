@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Base.Pattern.Implement;
+using Random = System.Random;
 
 public class AsteroidController : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class AsteroidController : MonoBehaviour
     private bool isAllowMoving = false;
     private float moveSpeed = 1200f;
     private float offSet;
+    private const int RATE_MONEY = 25;
     
     [Serializable]
     public class AsteroidData
@@ -129,7 +131,12 @@ public class AsteroidController : MonoBehaviour
     {
         if (GameManager.Instance.gameStateMachine.currentState is GameRunningState runningState)
         {
-            runningState.OnScored(data.score, data.money);
+            runningState.OnScored(data.score, 0);
+            var rate = UnityEngine.Random.Range(1, 100);
+            if (rate >= 100 - RATE_MONEY)
+            {
+                runningState.OnScored(0, data.money);
+            }
         }
     }
 }

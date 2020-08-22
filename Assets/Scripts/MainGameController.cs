@@ -139,7 +139,7 @@ public class MainGameController : MonoBehaviour
 
     public void ShootCommand()
     {
-        shipHandler.Shoot(true);
+        shipHandler.Shoot(false);
     }
 
     private void MoveCommand(float horizontal, float vertical)
