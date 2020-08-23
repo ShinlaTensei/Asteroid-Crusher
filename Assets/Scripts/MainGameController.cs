@@ -30,6 +30,8 @@ public class MainGameController : MonoBehaviour
     [SerializeField] private Image iconPw;
     [SerializeField] private Text typePw;
 
+    [SerializeField] private GameObject gameOverPopup;
+
     private Vector3[] originPos;
 
     private void Awake()

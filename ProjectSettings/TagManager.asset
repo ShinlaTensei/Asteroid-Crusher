@@ -9,6 +9,7 @@ TagManager:
   - Ship
   - Powerups
   - Shield
+  - Crystal
   layers:
   - Default
   - TransparentFX

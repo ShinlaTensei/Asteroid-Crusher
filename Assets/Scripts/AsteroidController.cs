@@ -15,6 +15,8 @@ public class AsteroidController : MonoBehaviour
     private float moveSpeed = 1200f;
     private float offSet;
     private const int RATE_MONEY = 25;
+
+    [SerializeField] private GameObject crystal;
     
     [Serializable]
     public class AsteroidData
@@ -135,7 +137,9 @@ public class AsteroidController : MonoBehaviour
             var rate = UnityEngine.Random.Range(1, 100);
             if (rate >= 100 - RATE_MONEY)
             {
-                runningState.OnScored(0, data.money);
+                GameObject moneyCrystal = Instantiate(crystal);
+                moneyCrystal.GetComponent<Crystal>().Init(data.money);
+                moneyCrystal.transform.position = gameObject.transform.position;
             }
         }
     }

@@ -232,6 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58ef0f2de2b8ab479024fd8a40b3cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crystal: {fileID: 7157530337150589884, guid: 87216393952119247904c56da4c54d00, type: 3}
   data:
     healthPoint: 100
     money: 50
