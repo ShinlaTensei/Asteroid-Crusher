@@ -122,10 +122,6 @@ public class Ship : MonoBehaviour
             {
                 GetPowerUp(collide.gameObject.GetComponent<PowerUp>(), runningState);
             }
-            else if (collide.gameObject.CompareTag("Crystal"))
-            {
-                runningState.OnScored(0, collide.gameObject.GetComponent<Crystal>().Money);
-            }
         }
     }
     
